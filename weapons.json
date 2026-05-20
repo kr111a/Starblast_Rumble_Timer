@@ -74,6 +74,14 @@
             "volume": 0.2, "pitch": 850, "duration": 0.15, "size": 3, "color": "#ff007f" ,
             "pierce": 4
         },
+        "10": { 
+            "name": "알터네이트 발사",
+            "shotType": "Alternate",
+            "fireRate": 6, "inaccuracy": 8, "spread": 5, "angleOffset": 0, "recoil": 1.5, "speed": 18, "count": 1, 
+            "width": 8, "height": 30, 
+            "wShrink": 0.01, "hShrink": 0.05, 
+            "volume": 0.15, "pitch": 850, "duration": 0.15, "size": 3, "color": "#ff007f" ,
+        },
         "67": { 
             "name": "67방향 분열포",
             "shotType": "Normal",
