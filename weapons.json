@@ -5,7 +5,7 @@
             "recoil": 1.0, "speed": 20, "count": 1, 
             "width": 10, "height": 40, "wShrink": 0.05, "hShrink": 0.05, 
             "volume": 0.2, "pitch": 500, "duration": 0.2, "size": 6, "color": "#ffffff",
-            "drag": 0.97, "pierce": 1
+            "drag": 0.97, "pierce": 2
         },
         "1": { 
             "name": "기본 기관총",
