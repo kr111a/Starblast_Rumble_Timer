@@ -837,16 +837,23 @@ if (spaceship) {
     const RECOIL_FORCE = wp.recoil || 0;
     const BULLET_SPEED = wp.speed;
     let alternateIndex = 0;
+    
     // 매 프레임마다 쿨타임을 1씩 감소시킵니다
     if (laserCooldown > 0) {
         laserCooldown--;
     }
 
-    // 좌클릭 홀드 + 쿨타임 완료 + 무기 발사 탄수가 0보다 클 때 구동
+// 좌클릭 홀드 + 쿨타임 완료 + 무기 발사 탄수가 0보다 클 때 구동
     if (isLeftClickPressed && laserCooldown === 0 && BULLET_COUNT > 0) {
         
-        // 무기를 바꾸거나 인덱스가 탄수를 초과하면 안전하게 리셋
-        if (alternateIndex >= BULLET_COUNT) alternateIndex = 0;
+        // 🟢 [주인님의 분노 반영 1단계] 
+        // 멍청한 BULLET_COUNT 리셋을 도려내고, 진짜 총구 개수(barrel) 기준으로 안전하게 리셋합니다!
+        const TOTAL_BARRELS = wp.barrel || 1;
+        if (isAlternate) {
+            if (alternateIndex >= TOTAL_BARRELS) alternateIndex = 0;
+        } else {
+            alternateIndex = 0;
+        }
 
         // 기준 각도 계산
         const baseAngle = Math.atan2(mousePos.y - spaceship.y, mousePos.x - spaceship.x);
@@ -857,9 +864,6 @@ if (spaceship) {
         let muzzleY = spaceship.y + Math.sin(baseAngle) * 10;
 
         if (isAlternate) {
-            // 도감에 barrel 설정이 없으면 기본값 1로 처리
-            const TOTAL_BARRELS = wp.barrel || 1; 
-
             if (TOTAL_BARRELS > 1) {
                 // 🟢 [주인님의 3연장 순서 인프라] alternateIndex가 0, 1, 2 순서대로 증가함에 따라
                 // 왼쪽(-8px) ➡️ 가운데(0px) ➡️ 오른쪽(+8px)으로 정확하게 정렬됩니다!
