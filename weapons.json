@@ -7,7 +7,7 @@
             "volume": 0.1, "pitch": 700, "duration": 0.15, "size": 5, "color": "#ff0077" 
         },
         "2": { 
-            "name": "초고속 미니건",
+            "name": "초고속 기관총",
             "shotType": "Normal", "fireRate": 3, "inaccuracy": 25, "spread": 0, "angleOffset": 0, 
             "recoil": 0.4, "speed": 18, "count": 1, 
             "width": 7, "height": 25, "wShrink": 0.1, "hShrink": 0.4, 
@@ -74,7 +74,7 @@
             "pierce": 4
         },
         "11": { 
-            "name": "알터네이트 발사",
+            "name": "미니건",
             "shotType": "Alternate", "barrel": 3, "fireRate": 2, "inaccuracy": 1, "spread": 10, "angleOffset": 0, 
             "recoil": 0.3, "speed": 25, "count": 1, 
             "width": 7, "height": 30, "wShrink": 0.04, "hShrink": 0.05, 
