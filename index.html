@@ -999,39 +999,7 @@ function toggleContainer() {
         // 완성 여부와 상관없이 현재 실시간 번호(displayNum)를 왼쪽 위에 툭!
         ctx.fillText(displayNum, 20, 20); 
 
-        ctx.restore();
-
-// 🛑 에러가 나던 index.html 1051번째 줄 구역을 이렇게 감싸주세요!
-// (부모 루프가 없어서 에러가 난 거니, 강제로 탄환들을 순회하게 만듭니다.)
-
-lasers.forEach(laser => {  // 👈 🟢 [치트키] 이 한 줄로 제 디버그 코드를 싹 감싸 안아주십시오!
-    ctx.save();
-    ctx.translate(laser.x, laser.y);
-    ctx.rotate(laser.angle + (Math.PI / 2));
-
-    let shrinkFactor = 1.5;
-    if (laser.wShrink < 0) {
-        shrinkFactor = 2.0; 
-    }
-    const debugHalfW = laser.w / shrinkFactor;
-    const debugHalfH = laser.h / shrinkFactor;
-
-    ctx.strokeStyle = "rgba(255, 0, 0, 0.8)";
-    ctx.lineWidth = 1.5;
-    ctx.setLineDash([4, 2]);
-    ctx.strokeRect(-debugHalfW, -debugHalfH, debugHalfW * 2, debugHalfH * 2);
-
-    ctx.beginPath();
-    ctx.strokeStyle = "#ff0000";
-    ctx.lineWidth = 1;
-    ctx.setLineDash([]);
-    ctx.moveTo(-5, 0); ctx.lineTo(5, 0);
-    ctx.moveTo(0, -5); ctx.lineTo(0, 5);
-    ctx.stroke();
-
-    ctx.restore();
-}); // 👈 🟢 괄호 닫아주는 것도 잊지 마시고요!
-        
+        ctx.restore();  
     }
 
 let globalAudioCtx = null;
