@@ -845,17 +845,28 @@ if (laser.pierce && laser.pierce > 1) {
             if (hit) continue;
         }
 
-        // 📐 [화면에 레이저 실시간 그리기] 
-        for (let laser of lasers) {
-            ctx.save();
-            ctx.translate(laser.x, laser.y);
-            ctx.rotate(laser.angle + (Math.PI / 2));
-
-            ctx.fillStyle = laser.color;
-            ctx.fillRect(-laser.w / 2, -laser.h / 2, laser.w, laser.h);
-            
-            ctx.restore();
-        }
+// 📐 [화면에 레이저 실시간 그리기] 
+for (let laser of lasers) {
+    ctx.save();
+    ctx.translate(laser.x, laser.y);
+    
+    // 폭발 모드일 때와 아닐 때 분기 처리
+    if (laser.isExploding) {
+        // [폭발 모드: 둥근 에너지 볼]
+        ctx.beginPath();
+        ctx.arc(0, 0, laser.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 100, 0, ${laser.opacity})`;
+        ctx.fill();
+        ctx.closePath();
+    } else {
+        // [일반 모드: 날카로운 탄환]
+        ctx.rotate(laser.angle + (Math.PI / 2));
+        ctx.fillStyle = laser.color;
+        ctx.fillRect(-laser.w / 2, -laser.h / 2, laser.w, laser.h);
+    }
+    
+    ctx.restore();
+}
 
 // ---------------------------------------------------------------
 // 🔥 [무기 스왑 인프라] 민더스트리식 Spread + Inaccuracy 통합 연사 시스템
