@@ -190,6 +190,20 @@
             transform: scale(1.05); /* 살짝 거대화 */
         }
 
+    /* 📱 스마트폰 화면(가로 768px 이하)에서만 발동되는 마법 */
+    @media (max-width: 768px) {
+        /* 예시: 타이머 글자 크기를 모바일에서만 시원하게 키우기 */
+        #timer { 
+        font-size: 2.5rem !important; 
+        }
+    
+        /* 예시: 언어 선택창(Select 등)도 손가락으로 누르기 편하게 뚱뚱하게 만들기 */
+        .language-select {
+            font-size: 1.2rem !important;
+            padding: 10px !important;
+        }
+    }
+
     </style>
 </head>
 <body oncontextmenu="return false;">
