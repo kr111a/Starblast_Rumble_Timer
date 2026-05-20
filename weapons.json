@@ -4,28 +4,28 @@
             "shotType": "Normal", "fireRate": 8, "inaccuracy": 10, "spread": 0, "angleOffset": 0, 
             "recoil": 0.5, "speed": 15, "count": 1, 
             "width": 8, "height": 30, "wShrink": 0.1, "hShrink": 0.4, 
-            "volume": 0.1, "pitch": 700, "duration": 0.15, "size": 5, "color": "#ff0077" 
+            "volume": 0.1, "pitch": 700, "duration": 0.15, "size": 5, "color": "#ff3366" 
         },
         "2": { 
             "name": "초고속 기관총",
             "shotType": "Normal", "fireRate": 3, "inaccuracy": 25, "spread": 0, "angleOffset": 0, 
             "recoil": 0.4, "speed": 18, "count": 1, 
             "width": 7, "height": 25, "wShrink": 0.1, "hShrink": 0.4, 
-            "volume": 0.08, "pitch": 700, "duration": 0.15, "size": 5, "color": "#ffff00" 
+            "volume": 0.08, "pitch": 700, "duration": 0.15, "size": 5, "color": "#ffcc00" 
         },
         "3": { 
             "name": "스페이스 샷건",
             "shotType": "Normal", "fireRate": 25, "inaccuracy": 10, "spread": 5, "angleOffset": 0, 
             "recoil": 3.5, "speed": 20, "count": 7, 
             "width": 14, "height": 20, "wShrink": 0.1, "hShrink": 0.4, 
-            "volume": 0.25, "pitch": 350, "duration": 0.2, "size": 5, "color": "#00ffcc" 
+            "volume": 0.25, "pitch": 350, "duration": 0.2, "size": 5, "color": "#00ffaa" 
         },
         "4": { 
             "name": "스나이퍼 레일건",
             "shotType": "Normal", "fireRate": 40, "inaccuracy": 0, "spread": 0, "angleOffset": 0, 
             "recoil": 6.0, "speed": 35, "count": 1, 
             "width": 8, "height": 60, "wShrink": 0.08, "hShrink": 0.05, 
-            "volume": 0.3, "pitch": 900, "duration": 0.3, "size": 5, "color": "#00ffffff",
+            "volume": 0.3, "pitch": 900, "duration": 0.3, "size": 5, "color": "#e0ffff",
             "pierce": 3
         },
         "5": { 
@@ -33,28 +33,28 @@
             "shotType": "Normal", "fireRate": 12, "inaccuracy": 8, "spread": 180, "angleOffset": 90, 
             "recoil": -1, "speed": 14, "count": 2, 
             "width": 10, "height": 30, "wShrink": 0.05, "hShrink": 0.15, 
-            "volume": 0.18, "pitch": 700, "duration": 0.2, "size": 5, "color": "#ff88ff" 
+            "volume": 0.18, "pitch": 700, "duration": 0.2, "size": 5, "color": "#bf00ff" 
         },
         "6": { 
             "name": "세방향 분열포",
             "shotType": "Normal", "fireRate": 12, "inaccuracy": 8, "spread": 120, "angleOffset": 0, 
             "recoil": -1.5, "speed": 14, "count": 3, 
             "width": 10, "height": 30, "wShrink": 0.05, "hShrink": 0.15, 
-            "volume": 0.2, "pitch": 800, "duration": 0.2, "size": 5, "color": "#ff00ff" 
+            "volume": 0.2, "pitch": 800, "duration": 0.2, "size": 5, "color": "#ff00aa" 
         },
         "7": { 
             "name": "부스터",
             "shotType": "Normal", "fireRate": 5, "inaccuracy": 20, "spread": 180, "angleOffset": 0, 
             "recoil": -4, "speed": 30, "count": 3, 
             "width": 20, "height": 20, "wShrink": -0.05, "hShrink": 0.25, 
-            "volume": 0.12, "pitch": 800, "duration": 0.2, "size": 5, "color": "#FF441F" 
+            "volume": 0.12, "pitch": 800, "duration": 0.2, "size": 5, "color": "#ff4500" 
         },
         "8": {
             "name": "코스믹 웨이브 레이더",
             "shotType": "Normal", "fireRate": 70, "inaccuracy": 0, "spread": 0, "angleOffset": 0, 
             "recoil": 5, "speed": 15, "count": 15, 
             "width": 8, "height": 22, "wShrink": 0.05, "hShrink": 0.1, 
-            "volume": 0.15, "pitch": 900, "duration": 0.8, "size": 5, "color": "#00bfff",
+            "volume": 0.15, "pitch": 900, "duration": 0.8, "size": 5, "color": "#00aaff",
             "isWave": true
         },
         "9": { 
@@ -62,29 +62,30 @@
             "shotType": "Normal", "fireRate": 18, "inaccuracy": 3, "spread": 2, "angleOffset": 0, 
             "recoil": 2.0, "speed": 12, "count": 1, 
             "width": 35, "height": 20, "wShrink": -0.8, "hShrink": 0.25,
-            "volume": 0.15, "pitch": 450, "duration": 0.4, "size": 5, "color": "#00ff66",
+            "volume": 0.15, "pitch": 450, "duration": 0.4, "size": 5, "color": "#39ff14",
             "pierce": 3
         },
         "10": { 
             "name": "코스믹 렉 브레이커",
             "shotType": "Normal", "fireRate": 6, "inaccuracy": 8, "spread": 0, "angleOffset": 0, 
             "recoil": 1.5, "speed": 18, "count": 1, 
-            "width": 4, "height": 40, "wShrink": -4.5, "hShrink": 1.2, 
-            "volume": 0.2, "pitch": 850, "duration": 0.15, "size": 3, "color": "#ff007f" ,
+            "width": 4, "height": 40, 
+            "wShrink": -4.5, "hShrink": 1.2, 
+            "volume": 0.2, "pitch": 850, "duration": 0.15, "size": 3, "color": "#7b68ee",
             "pierce": 4
         },
         "11": { 
             "name": "미니건",
-            "shotType": "Alternate", "barrel": 3, "fireRate": 2, "inaccuracy": 1, "spread": 10, "angleOffset": 0, 
-            "recoil": 0.3, "speed": 25, "count": 1, 
+            "shotType": "Alternate", "fireRate": 2, "inaccuracy": 1, "spread": 10, "angleOffset": 0, 
+            "barrel": 3, "recoil": 0.3, "speed": 25, "count": 1, 
             "width": 7, "height": 30, "wShrink": 0.04, "hShrink": 0.05, 
-            "volume": 0.1, "pitch": 850, "duration": 0.15, "size": 3, "color": "#ff007f"
+            "volume": 0.1, "pitch": 850, "duration": 0.15, "size": 3, "color": "#ff6600"
         },
         "67": { 
             "name": "67 분열포",
             "shotType": "Normal", "fireRate": 67, "inaccuracy": 0.5, "spread": 5.37313432836, "angleOffset": 0, 
             "recoil": 0, "speed": 14, "count": 67, 
             "width": 20, "height": 20, "wShrink": -0.2, "hShrink": 0.3, 
-            "volume": 0.3, "pitch": 650, "duration": 1, "size": 5, "color": "#ff00ff" 
+            "volume": 0.3, "pitch": 650, "duration": 1, "size": 5, "color": "#dee2e6" 
         }
 }
