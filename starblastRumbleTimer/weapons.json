@@ -2,7 +2,7 @@
         "1": { 
             "name": "기본 기관총",
             "shotType": "Normal",
-            "fireRate": 8, "inaccuracy": 10, "spread": 0, "angleOffset": 0, "recoil": 0.5, "speed": 15, "count": 1, 
+            "fireRate": 2, "inaccuracy": 10, "spread": 0, "angleOffset": 0, "recoil": 0.5, "speed": 15, "count": 1, 
             "width": 8, "height": 30, "wShrink": 0.1, "hShrink": 0.4, 
             "volume": 0.1, "pitch": 700, "duration": 0.15, "size": 5, "color": "#ff0077" 
         },
