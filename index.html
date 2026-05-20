@@ -821,7 +821,8 @@ for (let l = lasers.length - 1; l >= 0; l--) {
                     laser.isExploding = true;
                     laser.vx = 0;
                     laser.vy = 0;
-                    laser.radius = laser.w / 2; // 사각형에서 원형으로 변신할 준비
+                    laser.radius = 5;      // 시작 반지름
+                    laser.opacity = 1;     // 투명도 초기화
                     
                     // 범위 내 별들 즉시 제거
                     stars.forEach(star => {
