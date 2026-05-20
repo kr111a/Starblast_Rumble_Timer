@@ -83,10 +83,10 @@
             "volume": 0.15, "pitch": 850, "duration": 0.15, "size": 3, "color": "#ff007f"
         },
         "67": { 
-            "name": "67방향 분열포",
+            "name": "67 분열포",
             "shotType": "Normal",
-            "fireRate": 67, "inaccuracy": 0.5, "spread": 5.37313432836, "angleOffset": 0, "recoil": -1.5, "speed": 14, "count": 67, 
-            "width": 15, "height": 20, "wShrink": -0.1, "hShrink": 0.3, 
+            "fireRate": 67, "inaccuracy": 0.5, "spread": 5.37313432836, "angleOffset": 0, "recoil": 0, "speed": 14, "count": 67, 
+            "width": 20, "height": 20, "wShrink": -0.2, "hShrink": 0.3, 
             "volume": 0.3, "pitch": 650, "duration": 1, "size": 5, "color": "#ff00ff" 
         }
 }
