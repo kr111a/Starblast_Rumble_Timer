@@ -897,7 +897,7 @@ function toggleContainer() {
                         hShrink: wp.hShrink || 0.3,
                         color: wp.color,
                         pierce: wp.pierce || 1,
-                        drag: wp.drag !== undefined ? wp.drag : 1.0
+                        drag: (wp.drag || 1)
                     });
                 }
 
