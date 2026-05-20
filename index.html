@@ -748,6 +748,9 @@ function toggleContainer() {
             laser.x += laser.vx;
             laser.y += laser.vy;
             
+            // drag 적용
+            laser.vx *= drag;
+            laser.vy *= drag;
             // 2. 크기 감소
             laser.w -= laser.wShrink;
             laser.h -= laser.hShrink;
@@ -894,6 +897,7 @@ function toggleContainer() {
                         hShrink: wp.hShrink || 0.3,
                         color: wp.color,
                         pierce: wp.pierce || 1
+                        drag: wp.drag !== undefined ? wp.drag : 1.0
                     });
                 }
 
