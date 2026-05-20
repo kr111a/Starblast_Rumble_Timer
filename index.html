@@ -613,20 +613,8 @@ function toggleContainer() {
 
     // 🔥 [신규] 현재 장착 중인 무기 번호 (기본 1번 기본기관총)
     let currentWeapon = 1; 
-
-    // 🔥 [신규] 0~5번 무기 스펙 도감 (원하는 대로 수치를 마구 조절해보세요!)
-    // ⚔️ [주인님의 무기 제작소] 한눈에 보이는 하이엔드 스펙 시트
-    let WEAPON_DOCK = {};
-
-    fetch('weapons.json')
-    .then(res => res.json())
-    .then(data => {
-        WEAPON_DOCK = data;
-        console.log("무기 데이터 로딩 완료!", WEAPON_DOCK);
-        // 여기서 게임 시작 함수를 부르거나 타이머를 돌리면 됩니다!
-    });
-
-
+    let WEAPON_DOCK = {}
+    
 // 자바스크립트 상단 변수 선언부에 이 녀석이 살아있는지 확인해 주세요!
     let firstInputDigit = null; // 첫 번째 누른 숫자(십의 자리)를 임시로 가둬둘 감옥
     let displayNum = "01"; // 👈 UI에 실시간으로 출력할 문자열 변수
