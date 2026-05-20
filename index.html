@@ -697,7 +697,7 @@ function toggleContainer() {
         nebula.addColorStop(1, 'rgba(0, 0, 0, 0)');
         ctx.fillStyle = nebula;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-
+    
         // 5. [별 그리기 및 이동 연산]
         for (let i = 0; i < numStars; i++) {
             let star = stars[i];
@@ -739,7 +739,7 @@ function toggleContainer() {
                 stars[i] = createStar(true);
             }
         }
-
+    
 // 🚀 [통합 레이저 물리 엔진]
 for (let l = lasers.length - 1; l >= 0; l--) {
     let laser = lasers[l];
@@ -773,7 +773,7 @@ for (let l = lasers.length - 1; l >= 0; l--) {
             // 폭발 범위 내 별 삭제
             stars.forEach(star => {
                 if (Math.hypot(star.x - laser.x, star.y - laser.y) < laser.splashRadius) {
-                    star.active = false;
+                    star.isExploding = true;
                 }
             });
         } else {
@@ -782,69 +782,67 @@ for (let l = lasers.length - 1; l >= 0; l--) {
         }
         continue;
     }
-}
+    // 🔴 [수정 완료] 기존에 여기에 있던 뜬금없는 '}'를 도려냈습니다!
 
-            // 4. 🎯 [주인님의 1화소 정밀 타격 OBB 충돌 엔진]
-            let hit = false;
-            for (let s = 0; s < stars.length; s++) {
-                let star = stars[s];
-                if (star.isExploding) continue; 
+    // 4. 🎯 [주인님의 1화소 정밀 타격 OBB 충돌 엔진]
+    let hit = false;
+    for (let s = 0; s < stars.length; s++) {
+        let star = stars[s];
+        if (star.isExploding) continue; 
 
-                // 1) 탄환의 중심점을 기준으로 별의 상대 위치 구하기
-                const dx = star.x - laser.x;
-                const dy = star.y - laser.y;
+        // 1) 탄환의 중심점을 기준으로 별의 상대 위치 구하기
+        const dx = star.x - laser.x;
+        const dy = star.y - laser.y;
 
-                // 2) ⭐ 핵심 기믹: 별의 좌표를 탄환이 회전한 각도만큼 반대로 회전시켜서 AABB로 변환!
-                const correctionAngle = -laser.angle + (Math.PI / 2);
-                const cos = Math.cos(correctionAngle);
-                const sin = Math.sin(correctionAngle);
-                const rotatedX = dx * cos - dy * sin;
-                const rotatedY = dx * sin + dy * cos;
+        // 2) ⭐ 핵심 기믹: 별의 좌표를 탄환이 회전한 각도만큼 반대로 회전시켜서 AABB로 변환!
+        const correctionAngle = -laser.angle + (Math.PI / 2);
+        const cos = Math.cos(correctionAngle);
+        const sin = Math.sin(correctionAngle);
+        const rotatedX = dx * cos - dy * sin;
+        const rotatedY = dx * sin + dy * cos;
 
-                // 3) 회전된 좌표계에서 직사각형 영역 + 별의 반지름만큼 범위를 넓혀 충돌 검사!
-                let shrinkFactor = 1.4;
-                const halfW = laser.w / shrinkFactor;
-                const halfH = laser.h / shrinkFactor;
+        // 3) 회전된 좌표계에서 직사각형 영역 + 별의 반지름만큼 범위를 넓혀 충돌 검사!
+        let shrinkFactor = 1.4;
+        const halfW = laser.w / shrinkFactor;
+        const halfH = laser.h / shrinkFactor;
 
-                if (rotatedX >= -halfW - star.size && rotatedX <= halfW + star.size &&
-                    rotatedY >= -halfH - star.size && rotatedY <= halfH + star.size) {
+        if (rotatedX >= -halfW - star.size && rotatedX <= halfW + star.size &&
+            rotatedY >= -halfH - star.size && rotatedY <= halfH + star.size) {
+            
+            star.isExploding = true; // 정밀 타격 성공, 별 폭발!
+            
+            // ⭐ [관통 시스템 가동]
+            if (laser.pierce && laser.pierce > 1) {
+                laser.pierce--; 
+            } else {
+                // 💣 폭발 로직
+                if (laser.isSplash && !laser.isExploding) {
+                    // [변신!] 멈추고 폭발 모드 진입
+                    laser.isExploding = true;
+                    laser.vx = 0;
+                    laser.vy = 0;
+                    laser.radius = laser.w / 2; // 사각형에서 원형으로 변신할 준비
                     
-                    star.isExploding = true; // 정밀 타격 성공, 별 폭발!
+                    // 범위 내 별들 즉시 제거
+                    stars.forEach(star => {
+                        if (Math.hypot(star.x - laser.x, star.y - laser.y) < laser.splashRadius) {
+                            star.isExploding = true;
+                        }
+                    });
                     
-// ⭐ [관통 시스템 가동]
-if (laser.pierce && laser.pierce > 1) {
-    laser.pierce--; 
-} else {
-    // 💣 폭발 로직
-    if (laser.isSplash && !laser.isExploding) {
-        // [변신!] 멈추고 폭발 모드 진입
-        laser.isExploding = true;
-        laser.vx = 0;
-        laser.vy = 0;
-        laser.radius = laser.w / 2; // 사각형에서 원형으로 변신할 준비
-        
-        // 범위 내 별들 즉시 제거
-        stars.forEach(star => {
-            if (Math.hypot(star.x - laser.x, star.y - laser.y) < laser.splashRadius) {
-                star.active = false;
-            }
-        });
-        
-        // 폭발 모드일 때는 splice 하지 않고 남겨둠 (그려야 하니까!)
-        hit = true; 
-        // 여기서 break 하지 말고 아래로 흐르게 해서 폭발 애니메이션을 보여줘야 함!
-    } else {
-        // 일반 탄환은 바로 삭제
-        lasers.splice(l, 1);    
-        hit = true;
-        break; 
-    }
-}
+                    hit = true; 
+                } else {
+                    // 일반 탄환은 바로 삭제
+                    lasers.splice(l, 1);    
+                    hit = true;
+                    break; 
                 }
             }
-            if (hit) continue;
         }
-
+    }
+    if (hit) continue;
+} // 👈 이 괄호가 이제 정상적으로 레이저 'for' 루프를 닫아줍니다!
+    
 // 📐 [화면에 레이저 실시간 그리기] 
 for (let laser of lasers) {
     ctx.save();
