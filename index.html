@@ -740,26 +740,49 @@ function toggleContainer() {
             }
         }
 
-// 🚀 [통합 레이저 물리 엔진: 이동 + 축소 + 별 충돌 판정]
-        for (let l = lasers.length - 1; l >= 0; l--) {
-            let laser = lasers[l];
-            
-            // 1. 이동
-            laser.x += laser.vx;
-            laser.y += laser.vy;
-            
-            // drag 적용
-            laser.vx *= laser.drag;
-            laser.vy *= laser.drag;
-            // 2. 크기 감소
-            laser.w -= laser.wShrink;
-            laser.h -= laser.hShrink;
+// 🚀 [통합 레이저 물리 엔진]
+for (let l = lasers.length - 1; l >= 0; l--) {
+    let laser = lasers[l];
 
-            // 3. 수명 종료(크기 2 미만) 시 즉시 삭제
-            if (laser.w < 4 || laser.h < 4) {
-                lasers.splice(l, 1);
-                continue;
-            }
+    // [폭발 모드 루틴]
+    if (laser.isExploding) {
+        laser.radius += 5;       // 동그랗게 팽창
+        laser.opacity -= 0.1;    // 사라질 준비
+        if (laser.opacity <= 0) {
+            lasers.splice(l, 1); // 투명도 0 되면 진짜 삭제
+        }
+        continue; // 폭발 중엔 이동 로직 스킵!
+    }
+
+    // [일반 이동 로직]
+    laser.x += laser.vx;
+    laser.y += laser.vy;
+    laser.vx *= laser.drag;
+    laser.vy *= laser.drag;
+    laser.w -= laser.wShrink;
+    laser.h -= laser.hShrink;
+
+    // [수명 종료 및 폭발 모드 전환]
+    if (laser.w < 4 || laser.h < 4) {
+        if (laser.isSplash) {
+            // 폭발 모드 변신!
+            laser.isExploding = true;
+            laser.radius = 5;      // 시작 반지름
+            laser.opacity = 1;     // 투명도 초기화
+            
+            // 폭발 범위 내 별 삭제
+            stars.forEach(star => {
+                if (Math.hypot(star.x - laser.x, star.y - laser.y) < laser.splashRadius) {
+                    star.active = false;
+                }
+            });
+        } else {
+            // 폭발 기능 없으면 그냥 삭제
+            lasers.splice(l, 1);
+        }
+        continue;
+    }
+}
 
             // 4. 🎯 [주인님의 1화소 정밀 타격 OBB 충돌 엔진]
             let hit = false;
