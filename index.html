@@ -792,18 +792,30 @@ function toggleContainer() {
 if (laser.pierce && laser.pierce > 1) {
     laser.pierce--; 
 } else {
-    // 💣 폭발 로직: 관통 횟수를 다 썼거나 관통이 없을 때!
-    if (laser.isSplash) {
+    // 💣 폭발 로직
+    if (laser.isSplash && !laser.isExploding) {
+        // [변신!] 멈추고 폭발 모드 진입
+        laser.isExploding = true;
+        laser.vx = 0;
+        laser.vy = 0;
+        laser.radius = laser.w / 2; // 사각형에서 원형으로 변신할 준비
+        
+        // 범위 내 별들 즉시 제거
         stars.forEach(star => {
             if (Math.hypot(star.x - laser.x, star.y - laser.y) < laser.splashRadius) {
                 star.active = false;
             }
         });
+        
+        // 폭발 모드일 때는 splice 하지 않고 남겨둠 (그려야 하니까!)
+        hit = true; 
+        // 여기서 break 하지 말고 아래로 흐르게 해서 폭발 애니메이션을 보여줘야 함!
+    } else {
+        // 일반 탄환은 바로 삭제
+        lasers.splice(l, 1);    
+        hit = true;
+        break; 
     }
-    
-    lasers.splice(l, 1);    
-    hit = true;
-    break; 
 }
                 }
             }
