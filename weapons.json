@@ -76,7 +76,7 @@
         },
         "11": { 
             "name": "알터네이트 발사",
-            "shotType": "Alternate",
+            "shotType": "Alternate", "barrel": "2",
             "fireRate": 6, "inaccuracy": 8, "spread": 5, "angleOffset": 0, "recoil": 1.5, "speed": 18, "count": 1, 
             "width": 8, "height": 30, 
             "wShrink": 0.01, "hShrink": 0.05, 
