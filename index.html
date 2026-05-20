@@ -746,7 +746,7 @@ for (let l = lasers.length - 1; l >= 0; l--) {
 
     // [폭발 모드 루틴]
     if (laser.isExploding) {
-        laser.radius += 5;       // 동그랗게 팽창
+        laser.radius += splashRadius / 10;       // 동그랗게 팽창
         laser.opacity -= 0.1;    // 사라질 준비
         if (laser.opacity <= 0) {
             lasers.splice(l, 1); // 투명도 0 되면 진짜 삭제
