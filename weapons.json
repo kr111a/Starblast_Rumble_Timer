@@ -2,7 +2,7 @@
         "1": { 
             "name": "기본 기관총",
             "shotType": "Normal",
-            "fireRate": 2, "inaccuracy": 10, "spread": 0, "angleOffset": 0, "recoil": 0.5, "speed": 15, "count": 1, 
+            "fireRate": 8, "inaccuracy": 10, "spread": 0, "angleOffset": 0, "recoil": 0.5, "speed": 15, "count": 1, 
             "width": 8, "height": 30, "wShrink": 0.1, "hShrink": 0.4, 
             "volume": 0.1, "pitch": 700, "duration": 0.15, "size": 5, "color": "#ff0077" 
         },
@@ -68,10 +68,10 @@
         "10": { 
             "name": "코스믹 렉 브레이커",
             "shotType": "Normal",
-            "fireRate": 6, "inaccuracy": 8, "spread": 0, "angleOffset": 0, "recoil": 2, "speed": 18, "count": 1, 
+            "fireRate": 6, "inaccuracy": 8, "spread": 0, "angleOffset": 0, "recoil": 1.5, "speed": 18, "count": 1, 
             "width": 4, "height": 40, 
             "wShrink": -4.5, "hShrink": 1.2, 
-            "volume": 0.25, "pitch": 850, "duration": 0.15, "size": 3, "color": "#ff007f" ,
+            "volume": 0.2, "pitch": 850, "duration": 0.15, "size": 3, "color": "#ff007f" ,
             "pierce": 4
         },
         "67": { 
