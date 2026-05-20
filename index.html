@@ -788,14 +788,23 @@ function toggleContainer() {
                     
                     star.isExploding = true; // 정밀 타격 성공, 별 폭발!
                     
-                    // ⭐ [관통 시스템 가동]
-                    if (laser.pierce && laser.pierce > 1) {
-                        laser.pierce--; 
-                    } else {
-                        lasers.splice(l, 1);    
-                        hit = true;
-                        break; 
-                    }
+// ⭐ [관통 시스템 가동]
+if (laser.pierce && laser.pierce > 1) {
+    laser.pierce--; 
+} else {
+    // 💣 폭발 로직: 관통 횟수를 다 썼거나 관통이 없을 때!
+    if (laser.isSplash) {
+        stars.forEach(star => {
+            if (Math.hypot(star.x - laser.x, star.y - laser.y) < laser.splashRadius) {
+                star.active = false;
+            }
+        });
+    }
+    
+    lasers.splice(l, 1);    
+    hit = true;
+    break; 
+}
                 }
             }
             if (hit) continue;
@@ -897,7 +906,9 @@ function toggleContainer() {
                         hShrink: wp.hShrink || 0.3,
                         color: wp.color,
                         pierce: wp.pierce || 1,
-                        drag: wp.drag || 1
+                        drag: wp.drag || 1,
+                        isSplash: wp.isSplash || false,  // 👈 이게 없으면 기본은 false!
+                        splashRadius: wp.splashRadius || 0
                     });
                 }
 
