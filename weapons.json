@@ -1,5 +1,12 @@
 {
-        
+        "0": { 
+            "name": "제로 포인트 캐논",
+            "shotType": "Normal", "fireRate": 10, "inaccuracy": 0, "spread": 0, "angleOffset": 0, 
+            "recoil": 1.0, "speed": 20, "count": 1, 
+            "width": 10, "height": 40, "wShrink": 0.05, "hShrink": 0.05, 
+            "volume": 0.2, "pitch": 500, "duration": 0.2, "size": 6, "color": "#ffffff",
+            "drag": 0.97, "pierce": 1
+        },
         "1": { 
             "name": "기본 기관총",
             "shotType": "Normal", "fireRate": 8, "inaccuracy": 10, "spread": 0, "angleOffset": 0, 
@@ -82,11 +89,11 @@
             "width": 7, "height": 30, "wShrink": 0.06, "hShrink": 0.05, 
             "volume": 0.1, "pitch": 850, "duration": 0.15, "size": 3, "color": "#ff6600"
         },
-        "11": { 
+        "12": { 
             "name": "폭발 미니건",
-            "shotType": "Alternate", "fireRate": 2, "inaccuracy": 1, "spread": 10, "angleOffset": 0, "drag": 0.99,
+            "shotType": "Alternate", "fireRate": 15, "inaccuracy": 5, "spread": 12, "angleOffset": 0, "drag": 0.99,
             "barrel": 3, "recoil": 0.3, "speed": 25, "count": 1, 
-            "width": 7, "height": 30, "wShrink": 0.06, "hShrink": 0.05, 
+            "width": 30, "height": 30, "wShrink": 0.1, "hShrink": 0.1, 
             "volume": 0.1, "pitch": 850, "duration": 0.15, "size": 3, "color": "#ff6600"
         },
         "67": { 
