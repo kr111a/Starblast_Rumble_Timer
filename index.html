@@ -749,8 +749,8 @@ function toggleContainer() {
             laser.y += laser.vy;
             
             // drag 적용
-            laser.vx *= drag;
-            laser.vy *= drag;
+            laser.vx *= laser.drag;
+            laser.vy *= laser.drag;
             // 2. 크기 감소
             laser.w -= laser.wShrink;
             laser.h -= laser.hShrink;
