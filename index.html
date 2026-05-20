@@ -836,7 +836,7 @@ if (spaceship) {
     const ANGLE_OFFSET = (wp.angleOffset || 0) * (Math.PI / 180); 
     const RECOIL_FORCE = wp.recoil || 0;
     const BULLET_SPEED = wp.speed;
-
+    let alternateIndex = 0;
     // 매 프레임마다 쿨타임을 1씩 감소시킵니다
     if (laserCooldown > 0) {
         laserCooldown--;
