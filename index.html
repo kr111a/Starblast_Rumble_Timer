@@ -616,7 +616,7 @@ function toggleContainer() {
 
     // 🔥 [신규] 0~5번 무기 스펙 도감 (원하는 대로 수치를 마구 조절해보세요!)
     // ⚔️ [주인님의 무기 제작소] 한눈에 보이는 하이엔드 스펙 시트
-    const WEAPON_DOCK = {};
+    let WEAPON_DOCK = {};
 
     fetch('weapons.json')
     .then(res => res.json())
