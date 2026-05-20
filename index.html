@@ -846,9 +846,10 @@ if (spaceship) {
 // 좌클릭 홀드 + 쿨타임 완료 + 무기 발사 탄수가 0보다 클 때 구동
     if (isLeftClickPressed && laserCooldown === 0 && BULLET_COUNT > 0) {
         
-        // 🟢 [주인님의 분노 반영 1단계] 
-        // 멍청한 BULLET_COUNT 리셋을 도려내고, 진짜 총구 개수(barrel) 기준으로 안전하게 리셋합니다!
-        const TOTAL_BARRELS = wp.barrel || 1;
+        // 🟢 1. 안전하게 진짜 총구 개수(barrel) 가져오기 (도감에 없으면 1)
+        const TOTAL_BARRELS = Number(wp.barrel) || 1; 
+
+        // 🟢 2. 무기를 바꾸거나 인덱스가 총구 개수를 초과하면 안전하게 리셋
         if (isAlternate) {
             if (alternateIndex >= TOTAL_BARRELS) alternateIndex = 0;
         } else {
@@ -858,30 +859,23 @@ if (spaceship) {
         // 기준 각도 계산
         const baseAngle = Math.atan2(mousePos.y - spaceship.y, mousePos.x - spaceship.x);
         
-        // 🟢 [핵심 기믹] Alternate 일 때 총구 좌우 좌표(오프셋) 계산!
-        // 원래 우주선 중심(muzzleX, muzzleY)에서 옆으로 슥 밀어줄 겁니다.
+        // 🟢 3. 기본 무기 출구 포지션 설정
         let muzzleX = spaceship.x + Math.cos(baseAngle) * 10;
         let muzzleY = spaceship.y + Math.sin(baseAngle) * 10;
 
-        if (isAlternate) {
-            if (TOTAL_BARRELS > 1) {
-                // 🟢 [주인님의 3연장 순서 인프라] alternateIndex가 0, 1, 2 순서대로 증가함에 따라
-                // 왼쪽(-8px) ➡️ 가운데(0px) ➡️ 오른쪽(+8px)으로 정확하게 정렬됩니다!
-                const sideOffset = (alternateIndex * wp.spread) - ((TOTAL_BARRELS - 1) * wp.spread / 2);
-                
-                // 바라보는 방향의 수직 벡터(90도 회전)를 구해서 좌우로 총구 위치를 밀어줍니다.
-                muzzleX += Math.cos(baseAngle + Math.PI / 2) * sideOffset;
-                muzzleY += Math.sin(baseAngle + Math.PI / 2) * sideOffset;
-            }
+        // 🟢 4. [Alternate 전용] 총구 좌표를 왼쪽/가운데/오른쪽으로 정직하게 이동!
+        if (isAlternate && TOTAL_BARRELS > 1) {
+            const sideOffset = (alternateIndex * wp.spread) - ((TOTAL_BARRELS - 1) * wp.spread / 2);
+            muzzleX += Math.cos(baseAngle + Math.PI / 2) * sideOffset;
+            muzzleY += Math.sin(baseAngle + Math.PI / 2) * sideOffset;
         }
         
         playLaserSound();
 
-        // 🟢 Alternate 모드면 딱 'alternateIndex' 번째 총구에서만 한 발 쏩니다!
-        const startI = isAlternate ? alternateIndex : 0;
-        const endI = isAlternate ? alternateIndex + 1 : BULLET_COUNT;
+        // 🟢 5. [루프 간소화] Alternate 모드면 닥치고 딱 1발만 쏘고, Normal이면 지정된 count만큼 일제 사격!
+        const loopCount = isAlternate ? 1 : BULLET_COUNT;
 
-        for (let i = startI; i < endI; i++) {
+        for (let i = 0; i < loopCount; i++) {
             
             // Normal 모드일 때만 작동하는 부채꼴 퍼짐 오프셋
             const spreadOffset = isAlternate ? 0 : (BULLET_COUNT > 1 
@@ -919,6 +913,17 @@ if (spaceship) {
                 pierce: wp.pierce || 1
             });
         }
+
+        // 🟢 6. [실종되었던 핵심 심장] 발사가 끝났으니 다음 총구 번호로 굴려주기!!
+        laserCooldown = FIRE_RATE;
+
+        if (isAlternate) {
+            // 발사할 때마다 0 ➡️ 1 ➡️ 2 순서로 증가하다가 TOTAL_BARRELS를 만나면 다시 0으로!
+            alternateIndex = (alternateIndex + 1) % TOTAL_BARRELS;
+        } else {
+            alternateIndex = 0;
+        }
+    } // 👈 이 괄
 
         // 작용·반작용 반동 적용
         spaceship.vx -= Math.cos(baseAngle) * RECOIL_FORCE;
