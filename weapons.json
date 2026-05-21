@@ -87,7 +87,7 @@
             "shotType": "Alternate", "fireRate": 2, "inaccuracy": 1, "spread": 10, "angleOffset": 0, 
             "barrel": 3, "recoil": 0.3, "speed": 25, "count": 1, 
             "width": 7, "height": 30, "wShrink": 0.06, "hShrink": 0.05, 
-            "volume": 0.1, "pitch": 850, "duration": 0.15, "size": 3, "color": "#ff6600"
+            "volume": 0.1, "pitch": 850, "duration": 0.15, "size": 3, "color": "#ffea00"
         },
         "12": { 
             "name": "폭발 미니건",
