@@ -52,9 +52,9 @@
         },
         "7": { 
             "name": "부스터",
-            "shotType": "Normal", "fireRate": 5, "inaccuracy": 20, "spread": 180, "angleOffset": 0, 
+            "shotType": "Normal", "fireRate": 5, "inaccuracy": 20, "spread": 180, "angleOffset": 180, 
             "recoil": -4, "speed": 30, "count": 5, 
-            "width": 20, "height": 20, "wShrink": -0.05, "hShrink": 0.4, 
+            "width": 20, "height": 20, "wShrink": -0.15, "hShrink": 0.55, 
             "volume": 0.12, "pitch": 800, "duration": 0.2, "size": 5, "color": "#ff4500" 
         },
         "8": {
