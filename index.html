@@ -386,7 +386,7 @@ function toggleContainer() {
         let targetStart = new Date("2026-05-17T16:00:00Z").getTime();
         let targetEnd = targetStart + (8 * 60 * 60 * 1000); 
 
-        const CYCLE = 60 * 60 * 60 * 1000; // 수정
+        const CYCLE = 64 * 60 * 60 * 1000; // 시간 밀리는거 수정 이전: 68 * 60 * 60 * 1000;
 
         while (nowMs > targetEnd) {
             targetStart += CYCLE;
