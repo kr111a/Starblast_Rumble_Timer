@@ -885,10 +885,6 @@ for (let laser of lasers) {
             // 🟢 진짜 총구 개수(barrel) 가져오기 (도감에 없으면 2)
             const TOTAL_BARRELS = Number(wp.barrel) || 2; 
             
-            if (alternateIndex === null) {
-            alternateIndex = 0;
-            }
-            
             // 매 프레임마다 쿨타임을 1씩 감소시킵니다
             if (laserCooldown > 0) {
                 laserCooldown--;
