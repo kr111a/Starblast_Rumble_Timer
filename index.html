@@ -364,7 +364,7 @@ function toggleContainer() {
     
     // 타임라인 규칙 (밀리초 단위 환산)
     const RUMBLE_DURATION = 8 * 60 * 60 * 1000;  // 8시간 (진행 시간)
-    const COOLDOWN_DURATION = 64 * 60 * 60 * 1000; // 60시간 (대기 텀) 일단 임시로 고침
+    const COOLDOWN_DURATION = 60 * 60 * 60 * 1000; // 60시간 (대기 텀)
     const TOTAL_CYCLE = RUMBLE_DURATION + COOLDOWN_DURATION; // 총 68시간 주기
 
     function updateTimer() {
@@ -386,7 +386,7 @@ function toggleContainer() {
         let targetStart = new Date("2026-05-17T16:00:00Z").getTime();
         let targetEnd = targetStart + (8 * 60 * 60 * 1000); 
 
-        const CYCLE = 68 * 60 * 60 * 1000; 
+        const CYCLE = 60 * 60 * 60 * 1000; // 수정
 
         while (nowMs > targetEnd) {
             targetStart += CYCLE;
