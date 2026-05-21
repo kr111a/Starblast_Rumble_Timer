@@ -621,6 +621,7 @@ function toggleContainer() {
 
 // 🔥 숫자 2번 입력 리스너 (존재하지 않는 무기 칼같이 컷하는 버전)
     window.addEventListener('keydown', (e) => {
+    if (spaceship) {
         if (e.key >= '0' && e.key <= '9') {
             const currentInputNum = parseInt(e.key);
 
@@ -647,12 +648,12 @@ function toggleContainer() {
                 firstInputDigit = null; // 입력 감옥 리셋
             }
         }
-
         if (e.key === 'Escape') {
             firstInputDigit = null;
             displayNum = String(currentWeapon).padStart(2, '0');
         }
     });
+}
 
     // 3. [🔥 이스터 에그] s-t-a-r-b-l-a-s-t 입력 시스템
     const cheatCode = "starblast";
@@ -882,6 +883,8 @@ for (let laser of lasers) {
             const ANGLE_OFFSET = (wp.angleOffset || 0) * (Math.PI / 180); 
             const RECOIL_FORCE = wp.recoil || 0;
             const BULLET_SPEED = wp.speed;
+            // 🟢 진짜 총구 개수(barrel) 가져오기 (도감에 없으면 2)
+            const TOTAL_BARRELS = Number(wp.barrel) || 2; 
             
             // 매 프레임마다 쿨타임을 1씩 감소시킵니다
             if (laserCooldown > 0) {
@@ -890,9 +893,6 @@ for (let laser of lasers) {
 
             // 좌클릭 홀드 + 쿨타임 완료 + 무기 발사 탄수가 0보다 클 때 구동
             if (isLeftClickPressed && laserCooldown === 0 && BULLET_COUNT > 0) {
-                
-                // 🟢 진짜 총구 개수(barrel) 가져오기 (도감에 없으면 1)
-                const TOTAL_BARRELS = Number(wp.barrel) || 1; 
 
                 // 무기를 바꾸거나 인덱스가 총구 개수를 초과하면 안전하게 리셋
                 if (isAlternate) {
