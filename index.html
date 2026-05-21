@@ -563,7 +563,7 @@ function toggleContainer() {
     let isLeftClickPressed = false;  // 👈 [신규] 좌클릭 연사 상태 감지용 변수
     let laserCooldown = 0;           // 👈 [신규] 연사 간격을 조절할 쿨타임 카운터
     let isCtrlPressed = false;       // 👈 [신규] Ctrl 키(RCS 오프) 상태 감지용 변수 추가!
-
+    let alternateIndex = 0;          // 오류 방지용으로 추가
     // 1. ⚠️ [절대 영점 교정 패치] 마우스 위치 추적
     // clientX/Y 대신 캔버스 내부 절대 영점을 잡는 offsetX/Y를 사용하여 상단 여백 오차를 완벽하게 도려냅니다.
     window.addEventListener('mousemove', (e) => { 
