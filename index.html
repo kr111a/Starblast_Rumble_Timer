@@ -1060,7 +1060,7 @@ for (let laser of lasers) {
 let globalAudioCtx = null;
 
 function playLaserSound() {
-    try {
+        {
         if (!globalAudioCtx) {
             const AudioContext = window.AudioContext || window.webkitAudioContext;
             globalAudioCtx = new AudioContext();
