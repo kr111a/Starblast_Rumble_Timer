@@ -607,7 +607,6 @@ function toggleContainer() {
     window.addEventListener('keydown', (e) => {
         if (e.key === 'Control') {
             isCtrlPressed = !isCtrlPressed; // 현재 상태를 반대로 뒤집음 (true ↔ false)
-            console.log(`Ctrl 키 상태: ${isCtrlPressed}`);
         }
     });
 
@@ -642,7 +641,6 @@ function toggleContainer() {
                     // ❌ 리스트에 없는 유령 무기(예: 47)면? 
                     // 화면에 띄우지도 않고, 현재 장착 중인 진짜 무기 번호로 강제 복구(롤백)!
                     displayNum = String(currentWeapon).padStart(2, '0'); 
-                    console.log(`⚠️ 경고: ${finalWeaponIndex}번 무기는 존재하지 않는 가짜입니다!`);
                 }
                 
                 firstInputDigit = null; // 입력 감옥 리셋
@@ -1100,24 +1098,16 @@ function playLaserSound() {
         osc.start(globalAudioCtx.currentTime);
         osc.stop(globalAudioCtx.currentTime + wpDuration);
         
-    } catch (e) {
-        console.log("오디오 재생 임시 오류 우회:", e);
     }
 }
 
 // 🛑 기존에 맨 밑에 있던 animate(); 를 지우고, 아래처럼 데이터 로딩 함수를 먼저 실행합니다.
 
-fetch('weapons.json') // JSON 파일 위치가 맞는지 확인하십시오!
+fetch('weapons.json')
     .then(response => response.json())
     .then(data => {
-        WEAPON_DOCK = data; // 가져온 데이터를 껍데기에 채워넣기
-        console.log("무기 데이터 로딩 성공!");
-        
-        // 🟢 데이터를 다 받은 후에야 비로소 게임 시작!
-        animate(); 
-    })
-    .catch(err => {
-        console.error("데이터 로딩 실패! 파일 위치를 확인하세요.", err);
+        WEAPON_DOCK = data;
+        animate();
     });
     
 </script>
