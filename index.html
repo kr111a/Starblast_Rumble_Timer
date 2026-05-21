@@ -621,7 +621,7 @@ function toggleContainer() {
 
 // 🔥 숫자 2번 입력 리스너 (존재하지 않는 무기 칼같이 컷하는 버전)
     window.addEventListener('keydown', (e) => {
-    if (spaceship) {
+        if (!spaceship) return;
         if (e.key >= '0' && e.key <= '9') {
             const currentInputNum = parseInt(e.key);
 
@@ -653,7 +653,6 @@ function toggleContainer() {
             displayNum = String(currentWeapon).padStart(2, '0');
         }
     });
-}
 
     // 3. [🔥 이스터 에그] s-t-a-r-b-l-a-s-t 입력 시스템
     const cheatCode = "starblast";
