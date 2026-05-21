@@ -40,14 +40,14 @@
             "name": "양방향 분열포",
             "shotType": "Normal", "fireRate": 12, "inaccuracy": 8, "spread": 180, "angleOffset": 90, 
             "recoil": -1, "speed": 14, "count": 2, 
-            "width": 10, "height": 30, "wShrink": 0.05, "hShrink": 0.15, 
+            "width": 10, "height": 30, "wShrink": 0.1, "hShrink": 0.15, 
             "volume": 0.18, "pitch": 700, "duration": 0.2, "size": 5, "color": "#bf00ff" 
         },
         "6": { 
             "name": "세방향 분열포",
             "shotType": "Normal", "fireRate": 12, "inaccuracy": 8, "spread": 120, "angleOffset": 0, 
             "recoil": -1.5, "speed": 14, "count": 3, 
-            "width": 10, "height": 30, "wShrink": 0.05, "hShrink": 0.15, 
+            "width": 10, "height": 30, "wShrink": 0.1, "hShrink": 0.15, 
             "volume": 0.2, "pitch": 800, "duration": 0.2, "size": 5, "color": "#ff00aa" 
         },
         "7": { 
