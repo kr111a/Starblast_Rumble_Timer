@@ -95,7 +95,7 @@
             "barrel": 3, "recoil": 0.3, "speed": 25, "count": 1, 
             "width": 30, "height": 30, "wShrink": 0.2, "hShrink": 0.2, 
             "volume": 0.15, "pitch": 650, "duration": 0.2, "size": 3, "color": "#ff6600",
-            "isSplash": true, "splashRadius": 100
+            "isSplash": true, "splashRadius": 60
         },
         "67": { 
             "name": "67 분열포",
