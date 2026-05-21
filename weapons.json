@@ -79,7 +79,7 @@
             "recoil": 1.5, "speed": 18, "count": 1, 
             "width": 4, "height": 40, 
             "wShrink": -4.5, "hShrink": 1.2, 
-            "volume": 0.2, "pitch": 850, "duration": 0.15, "size": 3, "color": "#7b68ee",
+            "volume": 0.1, "pitch": 850, "duration": 0.15, "size": 3, "color": "#7b68ee",
             "pierce": 4
         },
         "11": { 
@@ -101,7 +101,7 @@
             "name": "67 분열포",
             "shotType": "Normal", "fireRate": 67, "inaccuracy": 0.5, "spread": 5.37313432836, "angleOffset": 0, 
             "recoil": 0, "speed": 14, "count": 67, 
-            "width": 20, "height": 20, "wShrink": -0.2, "hShrink": 0.3, 
+            "width": 20, "height": 20, "wShrink": -0.3, "hShrink": 0.3, 
             "volume": 0.3, "pitch": 650, "duration": 1, "size": 5, "color": "#dee2e6" 
         }
 }
