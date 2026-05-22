@@ -728,7 +728,6 @@ setInterval(updateTimer, 1000);
                     ctx.beginPath();
                     ctx.arc(star.x + Math.cos(angle)*dist, star.y + Math.sin(angle)*dist, star.size*0.5, 0, Math.PI * 2);
                     ctx.fill();
-                    
                 }
                 if (star.explosionFrame > 15) {
                     stars[i] = createStar(true);
@@ -736,25 +735,28 @@ setInterval(updateTimer, 1000);
                 continue;
             }
 
-            if (star.size >= 1.8) {
-                let grad = ctx.createRadialGradient(star.x, star.y, star.size * 0.5, star.x, star.y, star.size * 4);
-                grad.addColorStop(0, 'rgba(0, 150, 255, 0.4)');
-                grad.addColorStop(1, 'rgba(0, 150, 255, 0)');
-                
-                ctx.fillStyle = grad;
-                ctx.beginPath();
-                // 빛무리는 살짝 더 납작한 타원으로
-                ctx.ellipse(star.x, star.y, star.size * 5, star.size * 2, 0, 0, Math.PI * 2, false);
-                ctx.fill();
-            }
-
-            // 2. 별 본체 그리기 (타원형)
+            // 1) [별 본체 먼저 그리기] - 경로 새로 시작!
+            ctx.beginPath(); 
             ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
-            ctx.beginPath();
-            ctx.ellipse(star.x, star.y, star.size, star.size * 0.8, 0, 0, Math.PI * 2, false);
+            ctx.ellipse(star.x, star.y, star.size * 1.5, star.size * 0.8, 0, 0, Math.PI * 2, false);
             ctx.fill();
 
+            // 2) [플레어 그리기] - ⭐ 여기서 반드시 경로를 새로 열어 독립시켜야 합니다!
+            if (star.size >= 1.8) {
+                ctx.beginPath(); // 👈 이게 없어서 별이 괴물이 됐던 겁니다!
+                
+                let flareWidth = star.size * 20;  
+                let flareHeight = star.size * 0.5; 
+                let flare = ctx.createLinearGradient(star.x - flareWidth / 1.5, star.y, star.x + flareWidth / 1.5, star.y);
+                flare.addColorStop(0, 'rgba(0, 150, 255, 0)'); 
+                flare.addColorStop(0.5, 'rgba(255, 255, 255, 0.95)'); 
+                flare.addColorStop(1, 'rgba(0, 150, 255, 0)');
+                
+                ctx.fillStyle = flare; 
+                ctx.fillRect(star.x - flareWidth / 2, star.y - flareHeight / 2, flareWidth, flareHeight);
+            }
 
+            // 3) 이동 로직
             star.x -= star.speed;
             star.y += star.speed;
 
@@ -762,6 +764,7 @@ setInterval(updateTimer, 1000);
                 stars[i] = createStar(true);
             }
         }
+        // 5. [별 그리기 및 이동 연산]
     
 // 🚀 [통합 레이저 물리 엔진]
 for (let l = lasers.length - 1; l >= 0; l--) {
