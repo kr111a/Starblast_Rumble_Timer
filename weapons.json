@@ -32,7 +32,7 @@
         "4": { 
             "name": "Super Space Shotgun",
             "shotType": "Normal", "fireRate": 60, "inaccuracy": 25, "spread": 4, "angleOffset": 0, 
-            "recoil": 5, "speed": 22, "count": 15, 
+            "recoil": 5, "speed": 22, "count": 25, 
             "width": 15, "height": 22, "wShrink": -0.1, "hShrink": 0.4, 
             "volume": 0.3, "pitch": 400, "duration": 0.2, "color": "#00bbaa",
             "speedRand": 0.25
