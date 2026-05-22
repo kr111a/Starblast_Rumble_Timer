@@ -551,15 +551,15 @@ setInterval(updateTimer, 1000);
             }
         }
 
-        // 🌟 [수정] 2%의 낮은 확률로 크기가 5~8인 '큰 별' 등장!
+        // 🌟 [수정] 2%의 낮은 확률로 크기가 5~10인 '큰 별' 등장!
         let size = Math.random() * 2.5 + 1;
         if (Math.random() < 0.02) { 
-            size = Math.random() * 3 + 5; 
+            size = Math.random() * 5 + 5; 
         }
 
         return {
             x: x, y: y,
-            size: Math.random() * 2.5 + 1, 
+            size: size,
             speed: Math.random() * 0.5 + 0.1, 
             opacity: Math.random() * 0.5 + 0.5,
             isExploding: false, // 펑! 터지는 중인지 체크
