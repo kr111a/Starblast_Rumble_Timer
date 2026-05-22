@@ -99,7 +99,7 @@
         },
         "67": { 
             "name": "67 분열포",
-            "shotType": "Normal", "fireRate": 67, "inaccuracy": 0.5, "spread": 5.37313432836, "angleOffset": 0, 
+            "shotType": "Normal", "fireRate": 67, "inaccuracy": 0.5, "spread": 5.37313432836, "angleOffset": 0, "drag": 0.97,
             "recoil": 0, "speed": 14, "count": 67, 
             "width": 20, "height": 20, "wShrink": -0.3, "hShrink": 0.3, 
             "volume": 0.3, "pitch": 650, "duration": 1, "size": 5, "color": "#dee2e6" 
