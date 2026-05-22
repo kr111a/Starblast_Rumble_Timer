@@ -4,7 +4,7 @@
             "shotType": "Normal", "fireRate": 10, "inaccuracy": 0, "spread": 0, "angleOffset": 0, 
             "recoil": 1.0, "speed": 20, "count": 1, 
             "width": 10, "height": 40, "wShrink": 0.05, "hShrink": 0.05, 
-            "volume": 0.2, "pitch": 500, "duration": 0.2, "size": 6, "color": "#ffffff",
+            "volume": 0.2, "pitch": 500, "duration": 0.2, "color": "#ffffff",
             "drag": 0.97, "pierce": 2, "speedRand": 0.05
         },
         "1": { 
@@ -12,90 +12,98 @@
             "shotType": "Normal", "fireRate": 8, "inaccuracy": 10, "spread": 0, "angleOffset": 0, 
             "recoil": 0.5, "speed": 15, "count": 1, 
             "width": 8, "height": 30, "wShrink": 0.1, "hShrink": 0.4, 
-            "volume": 0.1, "pitch": 700, "duration": 0.15, "size": 5, "color": "#ff3366" 
+            "volume": 0.1, "pitch": 700, "duration": 0.15, "color": "#ff3366" 
         },
         "2": { 
             "name": "Rapid Machine Gun",
             "shotType": "Normal", "fireRate": 3, "inaccuracy": 25, "spread": 0, "angleOffset": 0, 
             "recoil": 0.4, "speed": 18, "count": 1, 
             "width": 7, "height": 25, "wShrink": 0.1, "hShrink": 0.4, 
-            "volume": 0.08, "pitch": 700, "duration": 0.15, "size": 5, "color": "#ffcc00" 
+            "volume": 0.08, "pitch": 700, "duration": 0.15, "color": "#ffcc00" 
         },
         "3": { 
             "name": "Space Shotgun",
             "shotType": "Normal", "fireRate": 25, "inaccuracy": 10, "spread": 5, "angleOffset": 0, 
             "recoil": 3.5, "speed": 20, "count": 7, 
             "width": 14, "height": 20, "wShrink": 0.1, "hShrink": 0.4, 
-            "volume": 0.25, "pitch": 350, "duration": 0.2, "size": 5, "color": "#00ffaa",
+            "volume": 0.25, "pitch": 350, "duration": 0.2, "color": "#00ffaa",
             "speedRand": 0.15
         },
         "4": { 
+            "name": "Super Space Shotgun",
+            "shotType": "Normal", "fireRate": 60, "inaccuracy": 25, "spread": 4, "angleOffset": 0, 
+            "recoil": 5, "speed": 22, "count": 15, 
+            "width": 15, "height": 22, "wShrink": -0.1, "hShrink": 0.4, 
+            "volume": 0.3, "pitch": 400, "duration": 0.2, "color": "#00bbaa",
+            "speedRand": 0.25
+        },
+        "5": { 
             "name": "Sniper Railgun",
             "shotType": "Normal", "fireRate": 40, "inaccuracy": 0, "spread": 0, "angleOffset": 0, 
             "recoil": 6.0, "speed": 35, "count": 1, 
             "width": 8, "height": 60, "wShrink": 0.08, "hShrink": 0.05, 
-            "volume": 0.3, "pitch": 900, "duration": 0.3, "size": 5, "color": "#e0ffff",
+            "volume": 0.3, "pitch": 900, "duration": 0.3, "color": "#33ddff",
             "pierce": 3
         },
-        "5": { 
+        "6": { 
             "name": "Dual Splitter",
             "shotType": "Normal", "fireRate": 12, "inaccuracy": 8, "spread": 180, "angleOffset": 90, 
             "recoil": -1, "speed": 14, "count": 2, 
             "width": 10, "height": 30, "wShrink": 0.12, "hShrink": 0.15, 
-            "volume": 0.18, "pitch": 700, "duration": 0.2, "size": 5, "color": "#bf00ff" 
+            "volume": 0.18, "pitch": 700, "duration": 0.2, "color": "#bf00ff" 
         },
-        "6": { 
+        "7": { 
             "name": "Triple Splitter",
             "shotType": "Normal", "fireRate": 12, "inaccuracy": 8, "spread": 120, "angleOffset": 0, 
             "recoil": -1.5, "speed": 14, "count": 3, 
             "width": 10, "height": 30, "wShrink": 0.12, "hShrink": 0.15, 
-            "volume": 0.2, "pitch": 800, "duration": 0.2, "size": 5, "color": "#ff00aa" 
+            "volume": 0.2, "pitch": 800, "duration": 0.2, "color": "#ff00aa" 
         },
-        "7": { 
+        "8": { 
             "name": "Booster",
             "shotType": "Normal", "fireRate": 5, "inaccuracy": 20, "spread": 180, "angleOffset": 180, 
             "recoil": -4, "speed": 30, "count": 5, 
             "width": 20, "height": 20, "wShrink": -0.15, "hShrink": 0.55, 
-            "volume": 0.12, "pitch": 800, "duration": 0.2, "size": 5, "color": "#ff4500" 
+            "volume": 0.12, "pitch": 800, "duration": 0.2, "color": "#ff4500" 
         },
-        "8": {
+        "9": {
             "name": "Cosmic Wave Radar",
             "shotType": "Normal", "fireRate": 70, "inaccuracy": 0, "spread": 0, "angleOffset": 0, 
             "recoil": 5, "speed": 15, "count": 15, 
             "width": 8, "height": 22, "wShrink": 0.05, "hShrink": 0.1, 
-            "volume": 0.15, "pitch": 900, "duration": 0.8, "size": 5, "color": "#00aaff",
+            "volume": 0.15, "pitch": 900, "duration": 0.8, "color": "#00aaff",
             "isWave": true
         },
-        "9": { 
+        "10": { 
             "name": "Nebula Inflation Cannon",
             "shotType": "Normal", "fireRate": 18, "inaccuracy": 3, "spread": 2, "angleOffset": 0, 
             "recoil": 2.0, "speed": 12, "count": 1, 
             "width": 35, "height": 20, "wShrink": -0.8, "hShrink": 0.25,
-            "volume": 0.15, "pitch": 450, "duration": 0.4, "size": 5, "color": "#39ff14",
+            "volume": 0.15, "pitch": 450, "duration": 0.4, "color": "#39ff14",
             "pierce": 3
         },
-        "10": { 
+        "11": { 
             "name": "Cosmic Wreck Breaker",
             "shotType": "Normal", "fireRate": 6, "inaccuracy": 8, "spread": 0, "angleOffset": 0, 
             "recoil": 1.5, "speed": 18, "count": 1, 
             "width": 4, "height": 40, 
             "wShrink": -4.5, "hShrink": 1.2, 
-            "volume": 0.1, "pitch": 850, "duration": 0.15, "size": 3, "color": "#7b68ee",
+            "volume": 0.1, "pitch": 850, "duration": 0.15, "color": "#7b68ee",
             "pierce": 4
         },
-        "11": { 
+        "12": { 
             "name": "Minigun",
             "shotType": "Alternate", "fireRate": 2, "inaccuracy": 1, "spread": 10, "angleOffset": 0, 
             "barrel": 3, "recoil": 0.3, "speed": 25, "count": 1, 
             "width": 7, "height": 30, "wShrink": 0.075, "hShrink": 0.05, 
-            "volume": 0.06, "pitch": 850, "duration": 0.15, "size": 3, "color": "#ffea00"
+            "volume": 0.06, "pitch": 850, "duration": 0.15, "color": "#ffea00"
         },
-        "12": { 
+        "13": { 
             "name": "Bomb Minigun",
             "shotType": "Alternate", "fireRate": 20, "inaccuracy": 5, "spread": 16, "angleOffset": 0,
             "barrel": 3, "recoil": 0.3, "speed": 25, "count": 1, 
             "width": 30, "height": 30, "wShrink": 0.2, "hShrink": 0.2, 
-            "volume": 0.15, "pitch": 650, "duration": 0.2, "size": 3, "color": "#ff6600",
+            "volume": 0.15, "pitch": 650, "duration": 0.2, "color": "#ff6600",
             "isSplash": true, "splashRadius": 60, "drag": 0.95
         },
         "67": { 
@@ -103,7 +111,7 @@
             "shotType": "Normal", "fireRate": 67, "inaccuracy": 0.5, "spread": 5.37313432836, "angleOffset": 0,
             "recoil": 0, "speed": 14, "count": 67, 
             "width": 20, "height": 20, "wShrink": -0.3, "hShrink": 0.3, 
-            "volume": 0.3, "pitch": 650, "duration": 1, "size": 5, "color": "#dee2e6",
+            "volume": 0.3, "pitch": 650, "duration": 1, "color": "#aaaaaa",
             "pierce": 2,  "drag": 0.9867
         }
 }
