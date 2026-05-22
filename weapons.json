@@ -31,10 +31,10 @@
         },
         "4": { 
             "name": "Super Space Shotgun",
-            "shotType": "Normal", "fireRate": 60, "inaccuracy": 25, "spread": 4, "angleOffset": 0, 
-            "recoil": 5, "speed": 22, "count": 25, 
+            "shotType": "Normal", "fireRate": 60, "inaccuracy": 30, "spread": 3.5, "angleOffset": 0, 
+            "recoil": 6, "speed": 18, "count": 30, 
             "width": 15, "height": 22, "wShrink": -0.1, "hShrink": 0.4, 
-            "volume": 0.3, "pitch": 400, "duration": 0.2, "color": "#00bbaa",
+            "volume": 0.3, "pitch": 400, "duration": 0.4, "color": "#00bbaa",
             "speedRand": 0.25
         },
         "5": { 
@@ -88,7 +88,7 @@
             "recoil": 1.5, "speed": 18, "count": 1, 
             "width": 4, "height": 40, 
             "wShrink": -4.5, "hShrink": 1.2, 
-            "volume": 0.1, "pitch": 850, "duration": 0.15, "color": "#7b68ee",
+            "volume": 0.1, "pitch": 850, "duration": 0.25, "color": "#7b68ee",
             "pierce": 4
         },
         "12": { 
