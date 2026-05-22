@@ -891,6 +891,8 @@ for (let laser of lasers) {
             const ANGLE_OFFSET = (wp.angleOffset || 0) * (Math.PI / 180); 
             const RECOIL_FORCE = wp.recoil || 0;
             const BULLET_SPEED = wp.speed;
+            const speedRandFactor = wp.speedRand || 0;
+
             // 🟢 진짜 총구 개수(barrel) 가져오기 (도감에 없으면 2)
             const TOTAL_BARRELS = Number(wp.barrel) || 2; 
             
@@ -925,8 +927,7 @@ for (let laser of lasers) {
                 
                 playLaserSound();
 
-                // Alternate 모드면 닥치고 딱 1발만 쏘고, Normal이면 지정된 count만큼 일제 사격!
-                const loopCount = isAlternate ? 1 : BULLET_COUNT;
+                const loopCount = BULLET_COUNT;
 
                 for (let i = 0; i < loopCount; i++) {
                     const spreadOffset = isAlternate ? 0 : (BULLET_COUNT > 1 
@@ -936,6 +937,9 @@ for (let laser of lasers) {
                     const randomOffset = (Math.random() - 0.5) * INACCURACY;
 
                     let currentSpeed = BULLET_SPEED;
+                    const randomVariation = (Math.random() * 2 - 1) * speedRandFactor;
+                    currentSpeed *= (1 + randomVariation);
+
                     if (wp.isWave && BULLET_COUNT > 1 && !isAlternate) {
                         currentSpeed = BULLET_SPEED - (i / (BULLET_COUNT - 1)) * 10;
                     }

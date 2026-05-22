@@ -5,7 +5,7 @@
             "recoil": 1.0, "speed": 20, "count": 1, 
             "width": 10, "height": 40, "wShrink": 0.05, "hShrink": 0.05, 
             "volume": 0.2, "pitch": 500, "duration": 0.2, "size": 6, "color": "#ffffff",
-            "drag": 0.97, "pierce": 2
+            "drag": 0.97, "pierce": 2, "speedRand": 0.05
         },
         "1": { 
             "name": "Basic Machine Gun",
@@ -26,7 +26,8 @@
             "shotType": "Normal", "fireRate": 25, "inaccuracy": 10, "spread": 5, "angleOffset": 0, 
             "recoil": 3.5, "speed": 20, "count": 7, 
             "width": 14, "height": 20, "wShrink": 0.1, "hShrink": 0.4, 
-            "volume": 0.25, "pitch": 350, "duration": 0.2, "size": 5, "color": "#00ffaa" 
+            "volume": 0.25, "pitch": 350, "duration": 0.2, "size": 5, "color": "#00ffaa",
+            "speedRand": 0.15
         },
         "4": { 
             "name": "Sniper Railgun",
