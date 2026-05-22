@@ -517,6 +517,8 @@ document.addEventListener('DOMContentLoaded', () => {
 updateTimer();
 setInterval(updateTimer, 1000);
 
+// --------------------------- 타이머 코드 끝 ---------------------------
+
     // ==========================================
     // 2. 움직이는 별빛(우주 효과) 및 [미니게임] 전투 스크립트
     // ==========================================
@@ -547,6 +549,12 @@ setInterval(updateTimer, 1000);
             } else {
                 y = Math.random() * canvas.height; x = canvas.width;
             }
+        }
+
+        // 🌟 [수정] 2%의 낮은 확률로 크기가 5~8인 '큰 별' 등장!
+        let size = Math.random() * 2.5 + 1;
+        if (Math.random() < 0.02) { 
+            size = Math.random() * 3 + 5; 
         }
 
         return {
@@ -723,7 +731,7 @@ setInterval(updateTimer, 1000);
                     
                 }
                 if (star.explosionFrame > 15) {
-                    stars[i] = createStar(true); 
+                    stars[i] = createStar(true); a
                 }
                 continue;
             }
