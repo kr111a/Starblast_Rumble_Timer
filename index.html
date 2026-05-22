@@ -738,7 +738,7 @@ setInterval(updateTimer, 1000);
 
             ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
             ctx.beginPath();
-            ctx.ellipse(star.x, star.y, flareWidth / 2, flareHeight / 2, 0, 0, Math.PI * 2);
+            ctx.ellipse(star.x, star.y, star.size, star.size * 0.2, 0, Math.PI * 2);
             ctx.fill();
 
             if (star.size >= 1.8) {
