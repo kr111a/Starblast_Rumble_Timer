@@ -973,8 +973,10 @@
           laser.w -= laser.wShrink;
           laser.h -= laser.hShrink;
 
-          // [수명 종료 및 폭발 모드 전환]
-          if (laser.w < 4 || laser.h < 4) {
+          // [수명 종료 및 폭발 모드 전환 - Lifetime System]
+          laser.lifetime--; // 매 프레임마다 수명 감소
+
+          if (laser.lifetime <= 0) {
             if (laser.isSplash) {
               // 폭발 모드 변신!
               laser.isExploding = true;
@@ -1197,6 +1199,7 @@
                 drag: wp.drag || 1,
                 isSplash: wp.isSplash || false,
                 splashRadius: wp.splashRadius || 0,
+                lifetime: wp.lifetime || 60,
               });
             }
 
