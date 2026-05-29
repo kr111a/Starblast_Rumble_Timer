@@ -1,56 +1,72 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="qjKfj8KfzmDMiJjSBZeYAARm0fei5tzd-aurk-nC0mQ" />
-    
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="google-site-verification"
+      content="qjKfj8KfzmDMiJjSBZeYAARm0fei5tzd-aurk-nC0mQ"
+    />
+
     <title>Starblast Rumble Timer</title>
-    <meta name="description" content="The ultimate Starblast.io Rumble countdown timer. Track, time, and dominate the leaderboard with precision.">
-    
-    <meta property="og:title" content="Starblast Rumble Timer">
-    <meta property="og:description" content="The ultimate Starblast.io Rumble countdown timer.">
-    <meta property="og:type" content="website">
+    <meta
+      name="description"
+      content="The ultimate Starblast.io Rumble countdown timer. Track, time, and dominate the leaderboard with precision."
+    />
+
+    <meta property="og:title" content="Starblast Rumble Timer" />
+    <meta
+      property="og:description"
+      content="The ultimate Starblast.io Rumble countdown timer."
+    />
+    <meta property="og:type" content="website" />
     <style>
-        /* 기본 우주 배경 스타일 */
-        body {
-            background-color: #05050a;
-            color: #ffffff;
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            padding-top: 100px;
-            margin: 0;
-            overflow: hidden; /* 별들이 화면 밖으로 나갈 때 스크롤바 방지 */
-            position: relative;
-        }
+      /* 기본 우주 배경 스타일 */
+      body {
+        background-color: #05050a;
+        color: #ffffff;
+        font-family: "Arial", sans-serif;
+        text-align: center;
+        padding-top: 100px;
+        margin: 0;
+        overflow: hidden; /* 별들이 화면 밖으로 나갈 때 스크롤바 방지 */
+        position: relative;
+      }
 
-        /* 캔버스 배경을 화면 전체에 고정 */
-        #space {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-        }
+      /* 캔버스 배경을 화면 전체에 고정 */
+      #space {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+      }
 
-        /* 중앙 타이머 컨테이너 (별빛 위에 떠 있어야 하므로 z-index 설정) */
-        .container {
-            background-color: rgba(30, 30, 45, 0.85); /* 살짝 투명하게 해서 뒤에 별이 보이도록 */
-            display: inline-block;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(0, 255, 200, 0.3);
-            border: 1px solid rgba(0, 255, 200, 0.2);
-            position: relative;
-            z-index: 10;
-            backdrop-filter: blur(5px); /* 배경 흐림 효과로 고급스럽게 */
-            /* 기존 스타일들은 그대로 두시고 */
-            pointer-events: none; /* 👈 요놈만 슬쩍 추가 */
-        }
-        /* [그 바로 밑에 새로 한 줄 추가] */
-        .container * { pointer-events: auto; }
+      /* 중앙 타이머 컨테이너 (별빛 위에 떠 있어야 하므로 z-index 설정) */
+      .container {
+        background-color: rgba(
+          30,
+          30,
+          45,
+          0.85
+        ); /* 살짝 투명하게 해서 뒤에 별이 보이도록 */
+        display: inline-block;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 0 30px rgba(0, 255, 200, 0.3);
+        border: 1px solid rgba(0, 255, 200, 0.2);
+        position: relative;
+        z-index: 10;
+        backdrop-filter: blur(5px); /* 배경 흐림 효과로 고급스럽게 */
+        /* 기존 스타일들은 그대로 두시고 */
+        pointer-events: none; /* 👈 요놈만 슬쩍 추가 */
+      }
+      /* [그 바로 밑에 새로 한 줄 추가] */
+      .container * {
+        pointer-events: auto;
+      }
 
-    /* 창 닫기 버튼 (컨테이너 내부 오른쪽 위) */
-    .close-btn {
+      /* 창 닫기 버튼 (컨테이너 내부 오른쪽 위) */
+      .close-btn {
         position: absolute;
         top: 10px;
         right: 15px;
@@ -60,10 +76,10 @@
         cursor: pointer;
         font-weight: bold;
         border-radius: 5px;
-    }
+      }
 
-    /* 창 열기 버튼 (화면 오른쪽 위, 언어 선택 옆) */
-    .open-btn {
+      /* 창 열기 버튼 (화면 오른쪽 위, 언어 선택 옆) */
+      .open-btn {
         position: absolute;
         top: 20px;
         right: 150px; /* 언어 선택기와 겹치지 않게 배치 */
@@ -76,148 +92,192 @@
         display: none; /* 처음에 창이 떠 있으니 숨김 */
         z-index: 100;
         font-size: 24px;
-    }
-        
-        /* [진짜_최종_진짜_마지막] 애니메이션 멈춤 현상 해결 버전 */
-        .rainbow {
-            /* background 대신 background-image를 써서 애니메이션이 움직일 틈을 줍니다 */
-            background-image: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff, #ff0000) !important;
-            
-            /* 배경 크기도 확실하게 못 박아둡니다 */
-            background-size: 200% 100% !important;
-            
-            -webkit-background-clip: text !important;
-            background-clip: text !important;
-            -webkit-text-fill-color: transparent !important; 
-            color: transparent !important;
-            text-shadow: none !important;
-            
-            /* 이제 멱살 잡힌 게 풀려서 2초마다 쌩쌩 돌아갈 겁니다 */
-            /* !important 강제 빼니까 된듯 */
-            /* [핵심] 기존 무지개 속도(var)와 새로운 울렁임 애니메이션(wave)을 쉼표로 묶어 동시에 돌립니다 */
-            animation: rainbow-flow var(--speed, 2s) linear infinite, 
-                       wave 0.8s ease-in-out infinite;
-        }
+      }
 
-        /* 3. [🔥 럼블 전용] 시작되면 "XX 뒤 종료" 글자 자체가 불타오름 (웨이브 없음) */
-        .rumble {
-            /* 여기도 얄짤없이 background-image로 불길 그라데이션을 박아넣습니다 */
-            background-image: linear-gradient(to right, #ff3300, #ff6600, #ffaa00, #ffd700, #ffaa00, #ff6600, #ff3300) !important;
-            background-size: 200% 100% !important;
-            
-            -webkit-background-clip: text !important;
-            background-clip: text !important;
-            -webkit-text-fill-color: transparent !important; 
-            color: transparent !important;
-            text-shadow: none !important;
-            
-            /* 위아래 꿀렁임은 빼고, 0.35초 초고속 색상 질주만 가동 */
-            animation: rainbow-flow 0.35s linear infinite !important;
-        }
+      /* [진짜_최종_진짜_마지막] 애니메이션 멈춤 현상 해결 버전 */
+      .rainbow {
+        /* background 대신 background-image를 써서 애니메이션이 움직일 틈을 줍니다 */
+        background-image: linear-gradient(
+          to right,
+          #ff0000,
+          #ff7f00,
+          #ffff00,
+          #00ff00,
+          #0000ff,
+          #4b0082,
+          #8b00ff,
+          #ff0000
+        ) !important;
 
-        /* 무지개 색상이 좌우로 부드럽게 흐르는 애니메이션 효과 */
-        @keyframes rainbow-flow {
-            0% { background-position: 0% center; }
-            100% { background-position: -200% center; } /* 한 바퀴 자연스럽게 회전 */
-        }
+        /* 배경 크기도 확실하게 못 박아둡니다 */
+        background-size: 200% 100% !important;
 
-        /* 2. 위아래로 부드럽게 꿀렁이는 파도 애니메이션 */
-        /* 0% 지점에서 멈추지 않고 부드럽게 흘러내려 가는 가속도 보정 버전 */
-        @keyframes wave {
-            0% { 
-                transform: translateY(0px); /* 최고점 */
-                animation-timing-function: ease-in-out; 
-            }
-            50% { 
-                transform: translateY(20px);  /* 최저점 */
-                animation-timing-function: ease-in-out; 
-            }
-            100% { 
-                transform: translateY(0px); /* 최고점 */
-                animation-timing-function: ease-in-out; 
-            }
-        }
+        -webkit-background-clip: text !important;
+        background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        color: transparent !important;
+        text-shadow: none !important;
 
-        h1 { 
-            color: #00ffc8; 
-            margin-top: 0;
-            text-shadow: 0 0 10px rgba(0,255,192,0.5);
-        }
-        .timer {
-            font-size: 3rem;
-            font-weight: bold;
-            margin: 20px 0;
-            transform: translateY(10px);
-            color: #ff0077;
-            text-shadow: 0 0 15px rgba(255,0,119,0.5);
-        }
-        .info { 
-            color: #aaaaaa; 
-            font-size: 1.1rem;
-        }
+        /* 이제 멱살 잡힌 게 풀려서 2초마다 쌩쌩 돌아갈 겁니다 */
+        /* !important 강제 빼니까 된듯 */
+        /* [핵심] 기존 무지개 속도(var)와 새로운 울렁임 애니메이션(wave)을 쉼표로 묶어 동시에 돌립니다 */
+        animation:
+          rainbow-flow var(--speed, 2s) linear infinite,
+          wave 0.8s ease-in-out infinite;
+      }
 
-        /* 언어 선택기 스타일 (번역 전용 추가 항목) */
-        .lang-selector {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 100;
-        }
-        .lang-selector select {
-            background: rgba(30, 30, 45, 0.8);
-            color: #fff;
-            border: 1px solid rgba(0, 255, 200, 0.4);
-            padding: 8px 12px;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            outline: none;
-        }
+      /* 3. [🔥 럼블 전용] 시작되면 "XX 뒤 종료" 글자 자체가 불타오름 (웨이브 없음) */
+      .rumble {
+        /* 여기도 얄짤없이 background-image로 불길 그라데이션을 박아넣습니다 */
+        background-image: linear-gradient(
+          to right,
+          #ff3300,
+          #ff6600,
+          #ffaa00,
+          #ffd700,
+          #ffaa00,
+          #ff6600,
+          #ff3300
+        ) !important;
+        background-size: 200% 100% !important;
 
-        /* 🇰🇷 장인의 시그니처 카피라이트 UI */
-        .copyright {
-            position: fixed;
-            bottom: 10px;
-            right: 8px;
-            font-family: 'Courier New', Courier, monospace; /* 공대 감성 폰트 */
-            font-size: 14px;
-            font-weight: bold;
-            color: rgba(0, 255, 200, 0.4); /* 평소엔 은은하게 방해 안 되게 */
-            text-shadow: 0 0 5px rgba(0, 255, 200, 0.2);
-            user-select: none; /* 마우스 드래그 방지 */
-            z-index: 999; /* 무조건 최상단 레이어 사수 */
-            transition: all 0.3s ease;
-        }
+        -webkit-background-clip: text !important;
+        background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        color: transparent !important;
+        text-shadow: none !important;
 
-        /* 마우스 올리면 장인의 자부심처럼 밝게 빛남 */
-        .copyright:hover {
-            color: rgba(0, 255, 200, 1);
-            text-shadow: 0 0 10px rgba(0, 255, 200, 0.8);
-            transform: scale(1.05); /* 살짝 거대화 */
-        }
+        /* 위아래 꿀렁임은 빼고, 0.35초 초고속 색상 질주만 가동 */
+        animation: rainbow-flow 0.35s linear infinite !important;
+      }
 
-    /* 📱 스마트폰 화면(가로 768px 이하)에서만 발동되는 마법 */
-    @media (max-width: 768px) {
+      /* 무지개 색상이 좌우로 부드럽게 흐르는 애니메이션 효과 */
+      @keyframes rainbow-flow {
+        0% {
+          background-position: 0% center;
+        }
+        100% {
+          background-position: -200% center;
+        } /* 한 바퀴 자연스럽게 회전 */
+      }
+
+      /* 2. 위아래로 부드럽게 꿀렁이는 파도 애니메이션 */
+      /* 0% 지점에서 멈추지 않고 부드럽게 흘러내려 가는 가속도 보정 버전 */
+      @keyframes wave {
+        0% {
+          transform: translateY(0px); /* 최고점 */
+          animation-timing-function: ease-in-out;
+        }
+        50% {
+          transform: translateY(20px); /* 최저점 */
+          animation-timing-function: ease-in-out;
+        }
+        100% {
+          transform: translateY(0px); /* 최고점 */
+          animation-timing-function: ease-in-out;
+        }
+      }
+
+      h1 {
+        color: #00ffc8;
+        margin-top: 0;
+        text-shadow: 0 0 10px rgba(0, 255, 192, 0.5);
+      }
+      .timer {
+        font-size: 3rem;
+        font-weight: bold;
+        margin: 20px 0;
+        transform: translateY(10px);
+        color: #ff0077;
+        text-shadow: 0 0 15px rgba(255, 0, 119, 0.5);
+      }
+      .info {
+        color: #aaaaaa;
+        font-size: 1.1rem;
+      }
+
+      /* 언어 선택기 스타일 (번역 전용 추가 항목) */
+      .lang-selector {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 100;
+      }
+      .lang-selector select {
+        background: rgba(30, 30, 45, 0.8);
+        color: #fff;
+        border: 1px solid rgba(0, 255, 200, 0.4);
+        padding: 8px 12px;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        outline: none;
+      }
+
+      /* 🇰🇷 장인의 시그니처 카피라이트 UI */
+      .copyright {
+        position: fixed;
+        bottom: 10px;
+        right: 8px;
+        font-family: "Courier New", Courier, monospace; /* 공대 감성 폰트 */
+        font-size: 14px;
+        font-weight: bold;
+        color: rgba(0, 255, 200, 0.4); /* 평소엔 은은하게 방해 안 되게 */
+        text-shadow: 0 0 5px rgba(0, 255, 200, 0.2);
+        user-select: none; /* 마우스 드래그 방지 */
+        z-index: 999; /* 무조건 최상단 레이어 사수 */
+        transition: all 0.3s ease;
+      }
+
+      /* 마우스 올리면 장인의 자부심처럼 밝게 빛남 */
+      .copyright:hover {
+        color: rgba(0, 255, 200, 1);
+        text-shadow: 0 0 10px rgba(0, 255, 200, 0.8);
+        transform: scale(1.05); /* 살짝 거대화 */
+      }
+
+      /* 📱 스마트폰 화면(가로 768px 이하)에서만 발동되는 마법 */
+      @media (max-width: 768px) {
         /* 예시: 타이머 글자 크기를 모바일에서만 시원하게 키우기 */
-        #timer { 
-        font-size: 2.5rem !important; 
+        #timer {
+          font-size: 2.5rem !important;
         }
-    
+
         /* 예시: 언어 선택창(Select 등)도 손가락으로 누르기 편하게 뚱뚱하게 만들기 */
         .language-select {
-            font-size: 1.2rem !important;
-            padding: 10px !important;
+          font-size: 1.2rem !important;
+          padding: 10px !important;
         }
-    }
+      }
 
+      .footer-log {
+        position: fixed;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Courier New", Courier, monospace; /* 공대 감성 폰트 */
+        font-size: 14px;
+        font-weight: bold;
+        color: rgba(0, 255, 200, 0.4); /* 평소엔 은은하게 방해 안 되게 */
+        text-shadow: 0 0 5px rgba(0, 255, 200, 0.2);
+        user-select: none; /* 마우스 드래그 방지 */
+        z-index: 999; /* 무조건 최상단 레이어 사수 */
+        transition: all 0.3s ease;
+      }
+
+      /* 마우스 올리면 선명해짐 (사용자 반응 유도) */
+      .footer-log:hover {
+        color: rgba(0, 255, 200, 1);
+        text-shadow: 0 0 10px rgba(0, 255, 200, 0.8);
+        transform: translateX(-50%) scale(1.05);
+      }
     </style>
-</head>
-<body oncontextmenu="return false;">
+  </head>
+  <body oncontextmenu="return false;">
+    <div class="copyright">made by {(KR)}</div>
 
-<div class="copyright">made by {(KR)}</div>
-
-<div class="lang-selector">
-    <select onchange="changeLanguage(this.value)">
+    <div class="lang-selector">
+      <select onchange="changeLanguage(this.value)">
         <option value="ko">🇰🇷 한국어</option>
         <option value="en">🇺🇸 English</option>
         <option value="ja">🇯🇵 日本語</option>
@@ -225,157 +285,218 @@
         <option value="es">🇪🇸 Español</option>
         <option value="fr">🇫🇷 Français</option>
         <option value="de">🇩🇪 Deutsch</option>
-    </select>
-</div>
+      </select>
+    </div>
 
-<canvas id="space"></canvas>
+    <canvas id="space"></canvas>
 
-<button id="openBtn" class="open-btn" onclick="toggleContainer()">❐</button>
+    <button id="openBtn" class="open-btn" onclick="toggleContainer()">❐</button>
 
-<div class="container" id="mainContainer">
-    <button class="close-btn" onclick="toggleContainer()">✖</button>
-    
-    <h1>계산 중...</h1>
-    <div class="info">계산 중...</div>
-    <div id="countdown" class="timer">계산 중...</div>
-</div>
+    <div class="container" id="mainContainer">
+      <button class="close-btn" onclick="toggleContainer()">✖</button>
 
-<script>
+      <h1>계산 중...</h1>
+      <div class="info">계산 중...</div>
+      <div id="countdown" class="timer">계산 중...</div>
+    </div>
 
-    // [신규] 타이머 창 토글 시스템
-function toggleContainer() {
-    const container = document.getElementById("mainContainer");
-    const openBtn = document.getElementById("openBtn");
+    // 업데이트 로그
+    <div class="footer-log">
+      Deployments: 110 | Last Optimized:
+      <span id="last-update"></span>
+    </div>
 
-    if (container.style.display === "none") {
-        container.style.display = "inline-block"; // 창 다시 나타나게
-        openBtn.style.display = "none";           // 열기 버튼 숨김
-    } else {
-        container.style.display = "none";         // 창 숨김
-        openBtn.style.display = "block";          // 열기 버튼 나타남
-    }
-}
-    // =================================================================
-    // [글로벌 대통합] 주요 7개국 언어 사전 완벽 구축
-    // =================================================================
-    const i18n = {
+    <script>
+      // [신규] 타이머 창 토글 시스템
+      function toggleContainer() {
+        const container = document.getElementById("mainContainer");
+        const openBtn = document.getElementById("openBtn");
+
+        if (container.style.display === "none") {
+          container.style.display = "inline-block"; // 창 다시 나타나게
+          openBtn.style.display = "none"; // 열기 버튼 숨김
+        } else {
+          container.style.display = "none"; // 창 숨김
+          openBtn.style.display = "block"; // 열기 버튼 나타남
+        }
+      }
+      // =================================================================
+      // [글로벌 대통합] 주요 7개국 언어 사전 완벽 구축
+      // =================================================================
+      const i18n = {
         ko: {
-            rumbleTitle: "🔥 럼블 진행 중! 🔥",
-            rumbleInfo: "우주 전쟁터로 돌격하세요!",
-            waitInfo: "🚀 다음 럼블 카운트다운",
-            y: "년", m: "월", d: "일",
-            h: "시간", min: "분", s: "초",
-            mo: "개월 ", dayLabel: "일 ", remain: " 남음",
-            end: " 뒤 종료",
-            start: "다음 럼블 시작",
-            weekdays: ["일", "월", "화", "수", "목", "금", "토"],
-            am: "오전", pm: "오후", hourText: "시"
+          rumbleTitle: "🔥 럼블 진행 중! 🔥",
+          rumbleInfo: "우주 전쟁터로 돌격하세요!",
+          waitInfo: "🚀 다음 럼블 카운트다운",
+          y: "년",
+          m: "월",
+          d: "일",
+          h: "시간",
+          min: "분",
+          s: "초",
+          mo: "개월 ",
+          dayLabel: "일 ",
+          remain: " 남음",
+          end: " 뒤 종료",
+          start: "다음 럼블 시작",
+          weekdays: ["일", "월", "화", "수", "목", "금", "토"],
+          am: "오전",
+          pm: "오후",
+          hourText: "시",
         },
         en: {
-            rumbleTitle: "🔥 Rumble is Active! 🔥",
-            rumbleInfo: "Charge into the space battlefield!",
-            waitInfo: "🚀 Next Rumble Countdown",
-            y: "Y", m: "M", d: "D",
-            h: "h", min: "m", s: "s",
-            mo: " Months ", dayLabel: " Days ", remain: " Left",
-            end: " remaining",
-            start: "Next Rumble Start",
-            weekdays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-            am: "AM", pm: "PM", hourText: ""
+          rumbleTitle: "🔥 Rumble is Active! 🔥",
+          rumbleInfo: "Charge into the space battlefield!",
+          waitInfo: "🚀 Next Rumble Countdown",
+          y: "Y",
+          m: "M",
+          d: "D",
+          h: "h",
+          min: "m",
+          s: "s",
+          mo: " Months ",
+          dayLabel: " Days ",
+          remain: " Left",
+          end: " remaining",
+          start: "Next Rumble Start",
+          weekdays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+          am: "AM",
+          pm: "PM",
+          hourText: "",
         },
         ja: {
-            rumbleTitle: "🔥 ランブル開催中！ 🔥",
-            rumbleInfo: "宇宙の戦場へ突撃せよ！",
-            waitInfo: "🚀 次回ランブルカウントダウン",
-            y: "年", m: "月", d: "日",
-            h: "時間", min: "分", s: "秒",
-            mo: "ヶ月 ", dayLabel: "日 ", remain: " 残り",
-            end: " 後に終了",
-            start: "次回ランブル開始",
-            weekdays: ["日", "月", "火", "水", "木", "金", "土"],
-            am: "午前", pm: "午後", hourText: "時"
+          rumbleTitle: "🔥 ランブル開催中！ 🔥",
+          rumbleInfo: "宇宙の戦場へ突撃せよ！",
+          waitInfo: "🚀 次回ランブルカウントダウン",
+          y: "年",
+          m: "月",
+          d: "日",
+          h: "時間",
+          min: "分",
+          s: "秒",
+          mo: "ヶ月 ",
+          dayLabel: "日 ",
+          remain: " 残り",
+          end: " 後に終了",
+          start: "次回ランブル開始",
+          weekdays: ["日", "月", "火", "水", "木", "金", "土"],
+          am: "午前",
+          pm: "午後",
+          hourText: "時",
         },
         zh: {
-            rumbleTitle: "🔥 乱斗进行中！ 🔥",
-            rumbleInfo: "冲向太空战场！",
-            waitInfo: "🚀 下次乱斗倒计时",
-            y: "年", m: "月", d: "日",
-            h: "小时", min: "分", s: "秒",
-            mo: "个月 ", dayLabel: "天 ", remain: " 剩余",
-            end: " 后结束",
-            start: "下次乱斗开始",
-            weekdays: ["日", "一", "二", "三", "四", "五", "六"],
-            am: "上午", pm: "下午", hourText: "点"
+          rumbleTitle: "🔥 乱斗进行中！ 🔥",
+          rumbleInfo: "冲向太空战场！",
+          waitInfo: "🚀 下次乱斗倒计时",
+          y: "年",
+          m: "月",
+          d: "日",
+          h: "小时",
+          min: "分",
+          s: "秒",
+          mo: "个月 ",
+          dayLabel: "天 ",
+          remain: " 剩余",
+          end: " 后结束",
+          start: "下次乱斗开始",
+          weekdays: ["日", "一", "二", "三", "四", "五", "六"],
+          am: "上午",
+          pm: "下午",
+          hourText: "点",
         },
         es: {
-            rumbleTitle: "🔥 ¡Rumble Activo! 🔥",
-            rumbleInfo: "¡Cárgate al campo de batalla espacial!",
-            waitInfo: "🚀 Próximo Rumble Cuenta Regresiva",
-            y: "A", m: "M", d: "D",
-            h: "h", min: "m", s: "s",
-            mo: " Meses ", dayLabel: " Días ", remain: " Restantes",
-            end: " restante",
-            start: "Próximo Rumble",
-            weekdays: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
-            am: "AM", pm: "PM", hourText: ""
+          rumbleTitle: "🔥 ¡Rumble Activo! 🔥",
+          rumbleInfo: "¡Cárgate al campo de batalla espacial!",
+          waitInfo: "🚀 Próximo Rumble Cuenta Regresiva",
+          y: "A",
+          m: "M",
+          d: "D",
+          h: "h",
+          min: "m",
+          s: "s",
+          mo: " Meses ",
+          dayLabel: " Días ",
+          remain: " Restantes",
+          end: " restante",
+          start: "Próximo Rumble",
+          weekdays: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+          am: "AM",
+          pm: "PM",
+          hourText: "",
         },
         fr: {
-            rumbleTitle: "🔥 Rumble Actif ! 🔥",
-            rumbleInfo: "Foncez sur le champ de bataille spatial !",
-            waitInfo: "🚀 Compte à rebours du prochain Rumble",
-            y: "A", m: "M", d: "J",
-            h: "h", min: "m", s: "s",
-            mo: " Mois ", dayLabel: " Jours ", remain: " Restant",
-            end: " restant",
-            start: "Prochain Rumble",
-            weekdays: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
-            am: "AM", pm: "PM", hourText: ""
+          rumbleTitle: "🔥 Rumble Actif ! 🔥",
+          rumbleInfo: "Foncez sur le champ de bataille spatial !",
+          waitInfo: "🚀 Compte à rebours du prochain Rumble",
+          y: "A",
+          m: "M",
+          d: "J",
+          h: "h",
+          min: "m",
+          s: "s",
+          mo: " Mois ",
+          dayLabel: " Jours ",
+          remain: " Restant",
+          end: " restant",
+          start: "Prochain Rumble",
+          weekdays: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
+          am: "AM",
+          pm: "PM",
+          hourText: "",
         },
         de: {
-            rumbleTitle: "🔥 Rumble Aktiv! 🔥",
-            rumbleInfo: "Stürme das Weltraum-Schlachtfeld!",
-            waitInfo: "🚀 Nächster Rumble Countdown",
-            y: "J", m: "M", d: "T",
-            h: "Std.", min: "Min.", "s": "Sek.",
-            mo: " Monate ", dayLabel: " Tage ", remain: " Übrig",
-            end: " verbleibend",
-            start: "Nächster Rumble Beginn",
-            weekdays: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
-            am: "AM", pm: "PM", hourText: "Uhr"
-        }
-    };
+          rumbleTitle: "🔥 Rumble Aktiv! 🔥",
+          rumbleInfo: "Stürme das Weltraum-Schlachtfeld!",
+          waitInfo: "🚀 Nächster Rumble Countdown",
+          y: "J",
+          m: "M",
+          d: "T",
+          h: "Std.",
+          min: "Min.",
+          s: "Sek.",
+          mo: " Monate ",
+          dayLabel: " Tage ",
+          remain: " Übrig",
+          end: " verbleibend",
+          start: "Nächster Rumble Beginn",
+          weekdays: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
+          am: "AM",
+          pm: "PM",
+          hourText: "Uhr",
+        },
+      };
 
-    // 현재 선택된 언어 (초기값은 한국어)
-    let currentLang = localStorage.getItem('userLang') || "en";
+      // 현재 선택된 언어 (초기값은 한국어)
+      let currentLang = localStorage.getItem("userLang") || "en";
 
-    // 언어 변경 함수 (버튼 누르면 작동)
-function changeLanguage(lang) {
-    currentLang = lang;
-    localStorage.setItem('userLang', lang); // 선택 기억하기
-    document.documentElement.lang = lang;   // 브라우저 언어 속성 동기화
-    updateTimer();                          // 즉시 UI 갱신
-}
+      // 언어 변경 함수 (버튼 누르면 작동)
+      function changeLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem("userLang", lang); // 선택 기억하기
+        document.documentElement.lang = lang; // 브라우저 언어 속성 동기화
+        updateTimer(); // 즉시 UI 갱신
+      }
 
-    // ==========================================
-    // 1. 무한 루프 럼블 스케줄러 스크립트
-    // ==========================================
-    
-    // =================================================================
-    // [설정 구역] 디버그 모드 스위치
-    // =================================================================
-    const isDebug = false; // 🌟 true로 두면 디버그 시간 적용, false면 실제 현실 시간 적용!
-    const debugTimeStr = "2026-05-18T00:00+09:00"; // 🕒 원하는 가상의 시간을 여기다 입력하세요!
-    // =================================================================
+      // ==========================================
+      // 1. 무한 루프 럼블 스케줄러 스크립트
+      // ==========================================
 
-    // [수정] 정확하게 작동하도록 기준점을 5월 18일 오전 1시로 재설정합니다.
-    const BASE_START_TIME = new Date("2026-05-17T16:00:00Z").getTime();
-    
-    // 타임라인 규칙 (밀리초 단위 환산)
-    const RUMBLE_DURATION = 8 * 60 * 60 * 1000;  // 8시간 (진행 시간)
-    const COOLDOWN_DURATION = 60 * 60 * 60 * 1000; // 60시간 (대기 텀)
-    const TOTAL_CYCLE = RUMBLE_DURATION + COOLDOWN_DURATION; // 총 68시간 주기
+      // =================================================================
+      // [설정 구역] 디버그 모드 스위치
+      // =================================================================
+      const isDebug = false; // 🌟 true로 두면 디버그 시간 적용, false면 실제 현실 시간 적용!
+      const debugTimeStr = "2026-05-18T00:00+09:00"; // 🕒 원하는 가상의 시간을 여기다 입력하세요!
+      // =================================================================
 
-    function updateTimer() {
+      // [수정] 정확하게 작동하도록 기준점을 5월 18일 오전 1시로 재설정합니다.
+      const BASE_START_TIME = new Date("2026-05-17T16:00:00Z").getTime();
+
+      // 타임라인 규칙 (밀리초 단위 환산)
+      const RUMBLE_DURATION = 8 * 60 * 60 * 1000; // 8시간 (진행 시간)
+      const COOLDOWN_DURATION = 60 * 60 * 60 * 1000; // 60시간 (대기 텀)
+      const TOTAL_CYCLE = RUMBLE_DURATION + COOLDOWN_DURATION; // 총 68시간 주기
+
+      function updateTimer() {
         const t = i18n[currentLang]; // 현재 언어 보따리 즉시 로드
 
         // -----------------------------------------------------------------
@@ -383,22 +504,22 @@ function changeLanguage(lang) {
         // -----------------------------------------------------------------
         let nowMs;
         if (isDebug) {
-            nowMs = new Date(debugTimeStr).getTime();
+          nowMs = new Date(debugTimeStr).getTime();
         } else {
-            nowMs = new Date().getTime();
+          nowMs = new Date().getTime();
         }
 
         // -----------------------------------------------------------------
         // [글로벌 패치 + 무한 워프] let으로 선언해야 68시간씩 더하며 워프가 가능합니다!
         // -----------------------------------------------------------------
         let targetStart = new Date("2026-05-17T16:00:00Z").getTime();
-        let targetEnd = targetStart + (8 * 60 * 60 * 1000); 
+        let targetEnd = targetStart + 8 * 60 * 60 * 1000;
 
         const CYCLE = 64 * 60 * 60 * 1000; // 시간 밀리는거 수정 이전: 68 * 60 * 60 * 1000;
 
         while (nowMs > targetEnd) {
-            targetStart += CYCLE;
-            targetEnd += CYCLE;
+          targetStart += CYCLE;
+          targetEnd += CYCLE;
         }
 
         let displayTitle = "";
@@ -407,19 +528,18 @@ function changeLanguage(lang) {
 
         // 3. 판단 조건문
         if (nowMs >= targetStart && nowMs <= targetEnd) {
-            const timeRemaining = targetEnd - nowMs;
-            
-            displayTitle = t.rumbleTitle; // 하드코딩 탈탈 털어내기 완료
-            displayInfo = t.rumbleInfo;
-            displayCountdown = formatTime(timeRemaining) + t.end;
-        } 
-        else {
-            const timeRemaining = targetStart - nowMs;
-            const nextDate = new Date(targetStart);
-            
-            displayTitle = t.waitInfo;
-            displayInfo = `${t.start}: ${nextDate.getFullYear()}${t.y} ${nextDate.getMonth() + 1}${t.m} ${nextDate.getDate()}${t.d} (${getWeekday(nextDate)}) ${formatAMPM(nextDate)}`;
-            displayCountdown = formatLongTime(nowMs, targetStart);
+          const timeRemaining = targetEnd - nowMs;
+
+          displayTitle = t.rumbleTitle; // 하드코딩 탈탈 털어내기 완료
+          displayInfo = t.rumbleInfo;
+          displayCountdown = formatTime(timeRemaining) + t.end;
+        } else {
+          const timeRemaining = targetStart - nowMs;
+          const nextDate = new Date(targetStart);
+
+          displayTitle = t.waitInfo;
+          displayInfo = `${t.start}: ${nextDate.getFullYear()}${t.y} ${nextDate.getMonth() + 1}${t.m} ${nextDate.getDate()}${t.d} (${getWeekday(nextDate)}) ${formatAMPM(nextDate)}`;
+          displayCountdown = formatLongTime(nowMs, targetStart);
         }
 
         // -----------------------------------------------------------------
@@ -434,41 +554,43 @@ function changeLanguage(lang) {
         timerElement.classList.remove("rumble", "rainbow");
 
         if (isRumbleActive) {
-            timerElement.classList.add("rumble");
+          timerElement.classList.add("rumble");
         } else if (isLessToOneHour) {
-            timerElement.classList.add("rainbow");
-            
-            const minutesLeft = timeLeftMs / (1000 * 60);
-            const speed = 0.2 + (minutesLeft / 60) * 1.8;
-            timerElement.style.setProperty('--speed', `${speed}s`);
+          timerElement.classList.add("rainbow");
+
+          const minutesLeft = timeLeftMs / (1000 * 60);
+          const speed = 0.2 + (minutesLeft / 60) * 1.8;
+          timerElement.style.setProperty("--speed", `${speed}s`);
         } else {
-            timerElement.style.removeProperty('--speed');
+          timerElement.style.removeProperty("--speed");
         }
 
         // HTML 화면 갱신
         document.querySelector("h1").innerHTML = displayTitle;
         document.querySelector(".info").innerHTML = displayInfo;
-        timerElement.innerHTML = displayCountdown; 
-    }
+        timerElement.innerHTML = displayCountdown;
+      }
 
-    // ------------ 시간 포맷 다국어 지원 보조 함수들 ------------
-    
-    // 1. 단순 시/분/초 포맷 (럼블 종료 타이머용)
-    function formatTime(ms) {
+      // ------------ 시간 포맷 다국어 지원 보조 함수들 ------------
+
+      // 1. 단순 시/분/초 포맷 (럼블 종료 타이머용)
+      function formatTime(ms) {
         const t = i18n[currentLang];
         const hours = Math.floor(ms / (1000 * 60 * 60));
         const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((ms % (1000 * 60)) / 1000);
         return `${hours}${t.h} ${minutes}${t.min} ${seconds}${t.s}`;
-    }
+      }
 
-    // 2. 개월/일/시/분/초 장기 포맷 (대기 텀 카운트다운용)
-    function formatLongTime(nowMs, targetMs) {
+      // 2. 개월/일/시/분/초 장기 포맷 (대기 텀 카운트다운용)
+      function formatLongTime(nowMs, targetMs) {
         const t = i18n[currentLang];
         const now = new Date(nowMs);
         const target = new Date(targetMs);
-        
-        let months = (target.getFullYear() - now.getFullYear()) * 12 + (target.getMonth() - now.getMonth());
+
+        let months =
+          (target.getFullYear() - now.getFullYear()) * 12 +
+          (target.getMonth() - now.getMonth());
         let tempDate = new Date(now.getTime());
         tempDate.setMonth(tempDate.getMonth() + months);
         if (tempDate > target) months--;
@@ -478,708 +600,794 @@ function changeLanguage(lang) {
         let remainTime = targetMs - lastMonthDate.getTime();
 
         const days = Math.floor(remainTime / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((remainTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((remainTime % (1000 * 60 * 60)) / (1000 * 60));
+        const hours = Math.floor(
+          (remainTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+        );
+        const minutes = Math.floor(
+          (remainTime % (1000 * 60 * 60)) / (1000 * 60),
+        );
         const seconds = Math.floor((remainTime % (1000 * 60)) / 1000);
 
         let res = "";
         if (months > 0) res += `${months}${t.mo}`;
         if (days > 0 || months > 0) res += `${days}${t.dayLabel}`;
-        return res + `${hours}${t.h} ${minutes}${t.min} ${seconds}${t.s}${t.remain}`;
-    }
+        return (
+          res + `${hours}${t.h} ${minutes}${t.min} ${seconds}${t.s}${t.remain}`
+        );
+      }
 
-    // 요일 구하기 (글로벌 배열 반환)
-    function getWeekday(date) {
+      // 요일 구하기 (글로벌 배열 반환)
+      function getWeekday(date) {
         const t = i18n[currentLang];
         return t.weekdays[date.getDay()];
-    }
+      }
 
-// [번역 전용 확장] 아시아권과 서구권의 AM/PM 어순 국경선 정리
-    function formatAMPM(date) {
+      // [번역 전용 확장] 아시아권과 서구권의 AM/PM 어순 국경선 정리
+      function formatAMPM(date) {
         const t = i18n[currentLang];
         let hours = date.getHours();
         const ampm = hours >= 12 ? t.pm : t.am;
         hours = hours % 12;
-        hours = hours ? hours : 12; 
-        
+        hours = hours ? hours : 12;
+
         // 한/중/일은 "오후 9시", 서구권은 "9 PM" 형태로 표기 정렬
         if (["ko", "ja", "zh"].includes(currentLang)) {
-            return `${ampm} ${hours}${t.hourText}`;
+          return `${ampm} ${hours}${t.hourText}`;
         } else {
-            return `${hours} ${ampm}${t.hourText}`;
+          return `${hours} ${ampm}${t.hourText}`;
         }
-    }
+      }
 
-// 페이지 로드 시 저장된 언어로 셀렉트 박스 맞추기
-document.addEventListener('DOMContentLoaded', () => {
-    const savedLang = localStorage.getItem('userLang');
-    if (savedLang) {
-        document.querySelector('.lang-selector select').value = savedLang;
-        document.documentElement.lang = savedLang;
-    }
-});
+      // 페이지 로드 시 저장된 언어로 셀렉트 박스 맞추기
+      document.addEventListener("DOMContentLoaded", () => {
+        const savedLang = localStorage.getItem("userLang");
+        if (savedLang) {
+          document.querySelector(".lang-selector select").value = savedLang;
+          document.documentElement.lang = savedLang;
+        }
+      });
 
-// 기존 타이머 가동 코드
-updateTimer();
-setInterval(updateTimer, 1000);
+      // 기존 타이머 가동 코드
+      updateTimer();
+      setInterval(updateTimer, 1000);
 
-// --------------------------- 타이머 코드 끝 ---------------------------
+      // --------------------------- 타이머 코드 끝 ---------------------------
 
-    // ==========================================
-    // 2. 움직이는 별빛(우주 효과) 및 [미니게임] 전투 스크립트
-    // ==========================================
-    const canvas = document.getElementById('space');
-    const ctx = canvas.getContext('2d');
+      // ==========================================
+      // 2. 움직이는 별빛(우주 효과) 및 [미니게임] 전투 스크립트
+      // ==========================================
+      const canvas = document.getElementById("space");
+      const ctx = canvas.getContext("2d");
 
-    function resizeCanvas() {
+      function resizeCanvas() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
+      }
+      window.addEventListener("resize", resizeCanvas);
+      resizeCanvas();
 
-    const numStars = 150;
-    const stars = [];
+      const numStars = 150;
+      const stars = [];
 
-    // 별 생성 및 재활용 로직을 함수로 묶었습니다
-    function createStar(isNewSpawn = false) {
+      // 별 생성 및 재활용 로직을 함수로 묶었습니다
+      function createStar(isNewSpawn = false) {
         const spawnRatio = canvas.width / (canvas.width + canvas.height);
         let x, y;
 
         if (!isNewSpawn) {
-            x = Math.random() * canvas.width;
-            y = Math.random() * canvas.height;
+          x = Math.random() * canvas.width;
+          y = Math.random() * canvas.height;
         } else {
-            if (Math.random() < spawnRatio) {
-                y = 0; x = Math.random() * canvas.width;
-            } else {
-                y = Math.random() * canvas.height; x = canvas.width;
-            }
+          if (Math.random() < spawnRatio) {
+            y = 0;
+            x = Math.random() * canvas.width;
+          } else {
+            y = Math.random() * canvas.height;
+            x = canvas.width;
+          }
         }
 
         // 🌟 [수정] 2%의 낮은 확률로 크기가 5~10인 '큰 별' 등장!
         let size = Math.random() * 2.5 + 1;
-        if (Math.random() < 0.02) { 
-            size = Math.random() * 5 + 5; 
+        if (Math.random() < 0.02) {
+          size = Math.random() * 5 + 5;
         }
 
         return {
-            x: x, y: y,
-            size: size,
-            speed: Math.random() * 0.5 + 0.1, 
-            opacity: 1,
-            isExploding: false, // 펑! 터지는 중인지 체크
-            explosionFrame: 0
+          x: x,
+          y: y,
+          size: size,
+          speed: Math.random() * 0.5 + 0.1,
+          opacity: 1,
+          isExploding: false, // 펑! 터지는 중인지 체크
+          explosionFrame: 0,
         };
-    }
+      }
 
-    // 초기 별 셋팅
-    for (let i = 0; i < numStars; i++) {
+      // 초기 별 셋팅
+      for (let i = 0; i < numStars; i++) {
         stars.push(createStar());
-    }
+      }
 
-    // ==========================================
-    // 🚀 [미니게임] 시스템 변수 및 마우스/키보드 리스너
-    // ==========================================
-    let spaceship = null; 
-    let lasers = [];    
-    const mousePos = { x: 0, y: 0 }; 
-    let isRightClickPressed = false; // 👈 [신규] 우클릭 상태 감지용 변수 추가!
-    let isLeftClickPressed = false;  // 👈 [신규] 좌클릭 연사 상태 감지용 변수
-    let laserCooldown = 0;           // 👈 [신규] 연사 간격을 조절할 쿨타임 카운터
-    let isCtrlPressed = false;       // 👈 [신규] Ctrl 키(RCS 오프) 상태 감지용 변수 추가!
-    let alternateIndex = 0;          // 오류 방지용으로 추가
-    // 1. ⚠️ [절대 영점 교정 패치] 마우스 위치 추적
-    // clientX/Y 대신 캔버스 내부 절대 영점을 잡는 offsetX/Y를 사용하여 상단 여백 오차를 완벽하게 도려냅니다.
-    window.addEventListener('mousemove', (e) => { 
+      // ==========================================
+      // 🚀 [미니게임] 시스템 변수 및 마우스/키보드 리스너
+      // ==========================================
+      let spaceship = null;
+      let lasers = [];
+      const mousePos = { x: 0, y: 0 };
+      let isRightClickPressed = false; // 👈 [신규] 우클릭 상태 감지용 변수 추가!
+      let isLeftClickPressed = false; // 👈 [신규] 좌클릭 연사 상태 감지용 변수
+      let laserCooldown = 0; // 👈 [신규] 연사 간격을 조절할 쿨타임 카운터
+      let isCtrlPressed = false; // 👈 [신규] Ctrl 키(RCS 오프) 상태 감지용 변수 추가!
+      let alternateIndex = 0; // 오류 방지용으로 추가
+      // 1. ⚠️ [절대 영점 교정 패치] 마우스 위치 추적
+      // clientX/Y 대신 캔버스 내부 절대 영점을 잡는 offsetX/Y를 사용하여 상단 여백 오차를 완벽하게 도려냅니다.
+      window.addEventListener("mousemove", (e) => {
         mousePos.x = e.clientX;
         mousePos.y = e.clientY;
-    });
+      });
 
-// 2. [마우스 연사 및 홀드 시스템 통합 리스너]
-    window.addEventListener('mousedown', (e) => {
-        if (e.target.closest('.lang-selector') || e.target.closest('.container *')) return;
+      // 2. [마우스 연사 및 홀드 시스템 통합 리스너]
+      window.addEventListener("mousedown", (e) => {
+        if (
+          e.target.closest(".lang-selector") ||
+          e.target.closest(".container *")
+        )
+          return;
 
-        if (e.button === 0) { 
-            // 🔥 좌클릭을 꾹 누르면 연사 플래그 ON!
-            isLeftClickPressed = true;
-        } 
-        else if (e.button === 2) { 
-            // 우클릭을 꾹 누르면 전진 플래그 ON!
-            isRightClickPressed = true;
+        if (e.button === 0) {
+          // 🔥 좌클릭을 꾹 누르면 연사 플래그 ON!
+          isLeftClickPressed = true;
+        } else if (e.button === 2) {
+          // 우클릭을 꾹 누르면 전진 플래그 ON!
+          isRightClickPressed = true;
         }
-    });
+      });
 
-    window.addEventListener('mouseup', (e) => {
-        if (e.button === 0) { 
-            // 🔥 좌클릭을 떼면 연사 플래그 OFF!
-            isLeftClickPressed = false;
-        } 
-        else if (e.button === 2) { 
-            // 우클릭을 떼면 전진 플래그 OFF!
-            isRightClickPressed = false;
+      window.addEventListener("mouseup", (e) => {
+        if (e.button === 0) {
+          // 🔥 좌클릭을 떼면 연사 플래그 OFF!
+          isLeftClickPressed = false;
+        } else if (e.button === 2) {
+          // 우클릭을 떼면 전진 플래그 OFF!
+          isRightClickPressed = false;
         }
-    });
+      });
 
-    // 🔥 [신규] 마우스 버튼을 떼는 순간 감지
-    window.addEventListener('mouseup', (e) => {
-        if (e.button === 2) { 
-            // 우클릭을 떼면 전진 플래그 OFF!
-            isRightClickPressed = false;
+      // 🔥 [신규] 마우스 버튼을 떼는 순간 감지
+      window.addEventListener("mouseup", (e) => {
+        if (e.button === 2) {
+          // 우클릭을 떼면 전진 플래그 OFF!
+          isRightClickPressed = false;
         }
-    });
+      });
 
-    window.addEventListener('keydown', (e) => {
-        if (e.key === 'Control') {
-            isCtrlPressed = !isCtrlPressed; // 현재 상태를 반대로 뒤집음 (true ↔ false)
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Control") {
+          isCtrlPressed = !isCtrlPressed; // 현재 상태를 반대로 뒤집음 (true ↔ false)
         }
-    });
+      });
 
-    // 🔥 [신규] 현재 장착 중인 무기 번호 (기본 1번 기본기관총)
-    let currentWeapon = 1; 
-    let WEAPON_DOCK = {}
-    
-// 자바스크립트 상단 변수 선언부에 이 녀석이 살아있는지 확인해 주세요!
-    let firstInputDigit = null; // 첫 번째 누른 숫자(십의 자리)를 임시로 가둬둘 감옥
-    let displayNum = "01"; // 👈 UI에 실시간으로 출력할 문자열 변수
+      // 🔥 [신규] 현재 장착 중인 무기 번호 (기본 1번 기본기관총)
+      let currentWeapon = 1;
+      let WEAPON_DOCK = {};
 
-// 🔥 숫자 2번 입력 리스너 (존재하지 않는 무기 칼같이 컷하는 버전)
-    window.addEventListener('keydown', (e) => {
+      // 자바스크립트 상단 변수 선언부에 이 녀석이 살아있는지 확인해 주세요!
+      let firstInputDigit = null; // 첫 번째 누른 숫자(십의 자리)를 임시로 가둬둘 감옥
+      let displayNum = "01"; // 👈 UI에 실시간으로 출력할 문자열 변수
+
+      // 🔥 숫자 2번 입력 리스너 (존재하지 않는 무기 칼같이 컷하는 버전)
+      window.addEventListener("keydown", (e) => {
         if (!spaceship) return;
-        if (e.key >= '0' && e.key <= '9') {
-            const currentInputNum = parseInt(e.key);
+        if (e.key >= "0" && e.key <= "9") {
+          const currentInputNum = parseInt(e.key);
 
-            if (firstInputDigit === null) {
-                // 첫 번째 숫자를 누른 순간 (예: '4_')
-                firstInputDigit = currentInputNum;
-                displayNum = `${firstInputDigit}_`; 
+          if (firstInputDigit === null) {
+            // 첫 번째 숫자를 누른 순간 (예: '4_')
+            firstInputDigit = currentInputNum;
+            displayNum = `${firstInputDigit}_`;
+          } else {
+            // 두 번째 숫자를 누른 순간 (최종 검수)
+            const finalWeaponIndex = firstInputDigit * 10 + currentInputNum;
+
+            // ⭐ [주인님의 핵심 팩트 폭행 필터]
+            // 도감(WEAPON_DOCK)에 진짜로 존재하는 무기 번호일 때만 승인!
+            if (WEAPON_DOCK[finalWeaponIndex]) {
+              currentWeapon = finalWeaponIndex;
+              displayNum = String(finalWeaponIndex).padStart(2, "0"); // 정상 승인 시 화면 갱신
             } else {
-                // 두 번째 숫자를 누른 순간 (최종 검수)
-                const finalWeaponIndex = firstInputDigit * 10 + currentInputNum;
-                
-                // ⭐ [주인님의 핵심 팩트 폭행 필터] 
-                // 도감(WEAPON_DOCK)에 진짜로 존재하는 무기 번호일 때만 승인!
-                if (WEAPON_DOCK[finalWeaponIndex]) {
-                    currentWeapon = finalWeaponIndex;
-                    displayNum = String(finalWeaponIndex).padStart(2, '0'); // 정상 승인 시 화면 갱신
-                } else {
-                    // ❌ 리스트에 없는 유령 무기(예: 47)면? 
-                    // 화면에 띄우지도 않고, 현재 장착 중인 진짜 무기 번호로 강제 복구(롤백)!
-                    displayNum = String(currentWeapon).padStart(2, '0'); 
-                }
-                
-                firstInputDigit = null; // 입력 감옥 리셋
+              // ❌ 리스트에 없는 유령 무기(예: 47)면?
+              // 화면에 띄우지도 않고, 현재 장착 중인 진짜 무기 번호로 강제 복구(롤백)!
+              displayNum = String(currentWeapon).padStart(2, "0");
             }
-        }
-        if (e.key === 'Escape') {
-            firstInputDigit = null;
-            displayNum = String(currentWeapon).padStart(2, '0');
-        }
-    });
 
-    // 3. [🔥 이스터 에그] s-t-a-r-b-l-a-s-t 입력 시스템
-    const cheatCode = "starblast";
-    let inputBuffer = ""; 
+            firstInputDigit = null; // 입력 감옥 리셋
+          }
+        }
+        if (e.key === "Escape") {
+          firstInputDigit = null;
+          displayNum = String(currentWeapon).padStart(2, "0");
+        }
+      });
 
-    window.addEventListener('keydown', (e) => {
+      // 3. [🔥 이스터 에그] s-t-a-r-b-l-a-s-t 입력 시스템
+      const cheatCode = "starblast";
+      let inputBuffer = "";
+
+      window.addEventListener("keydown", (e) => {
         inputBuffer += e.key.toLowerCase();
 
         if (inputBuffer.length > cheatCode.length) {
-            inputBuffer = inputBuffer.substring(inputBuffer.length - cheatCode.length);
+          inputBuffer = inputBuffer.substring(
+            inputBuffer.length - cheatCode.length,
+          );
         }
 
         if (inputBuffer === cheatCode) {
-            spaceship = { 
-                x: mousePos.x, 
-                y: mousePos.y, 
-                targetX: mousePos.x, 
-                targetY: mousePos.y, 
-                size: 20, 
-                color: '#00ffc8' 
-            };
-            inputBuffer = ""; 
+          spaceship = {
+            x: mousePos.x,
+            y: mousePos.y,
+            targetX: mousePos.x,
+            targetY: mousePos.y,
+            size: 20,
+            color: "#00ffc8",
+          };
+          inputBuffer = "";
         }
-    });
+      });
 
-    // ==========================================
-    // 메인 애니메이션 루프 (매 프레임 무한 반복 구역)
-    // ==========================================
-    function animate() {
+      // ==========================================
+      // 메인 애니메이션 루프 (매 프레임 무한 반복 구역)
+      // ==========================================
+      function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
+
         // 배경 우주 그리기
-        ctx.fillStyle = '#05050a';
+        ctx.fillStyle = "#05050a";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         let nebula = ctx.createRadialGradient(
-            canvas.width * 0.5, canvas.height * 0.5, 10,
-            canvas.width * 0.5, canvas.height * 0.5, canvas.width * 0.8
+          canvas.width * 0.5,
+          canvas.height * 0.5,
+          10,
+          canvas.width * 0.5,
+          canvas.height * 0.5,
+          canvas.width * 0.8,
         );
-        nebula.addColorStop(0, 'rgba(75, 0, 130, 0.25)');
-        nebula.addColorStop(0.4, 'rgba(0, 128, 255, 0.12)');
-        nebula.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        nebula.addColorStop(0, "rgba(75, 0, 130, 0.25)");
+        nebula.addColorStop(0.4, "rgba(0, 128, 255, 0.12)");
+        nebula.addColorStop(1, "rgba(0, 0, 0, 0)");
         ctx.fillStyle = nebula;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
+
         // 5. [별 그리기 및 이동 연산]
         for (let i = 0; i < numStars; i++) {
-            let star = stars[i];
-            
-            if (star.isExploding) {
-                star.explosionFrame++;
-                ctx.fillStyle = `rgba(255, 255, 255, ${1 - star.explosionFrame/15})`;
-                for(let p=0; p<4; p++) {
-                    let angle = (Math.PI/2) * p + (star.explosionFrame * 0.1);
-                    let dist = star.explosionFrame * 3;
-                    ctx.beginPath();
-                    ctx.arc(star.x + Math.cos(angle)*dist, star.y + Math.sin(angle)*dist, star.size*0.5, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-                if (star.explosionFrame > 15) {
-                    stars[i] = createStar(true);
-                }
-                continue;
+          let star = stars[i];
+
+          if (star.isExploding) {
+            star.explosionFrame++;
+            ctx.fillStyle = `rgba(255, 255, 255, ${1 - star.explosionFrame / 15})`;
+            for (let p = 0; p < 4; p++) {
+              let angle = (Math.PI / 2) * p + star.explosionFrame * 0.1;
+              let dist = star.explosionFrame * 3;
+              ctx.beginPath();
+              ctx.arc(
+                star.x + Math.cos(angle) * dist,
+                star.y + Math.sin(angle) * dist,
+                star.size * 0.5,
+                0,
+                Math.PI * 2,
+              );
+              ctx.fill();
             }
-
-            // 1) [플레어 그리기] - 직사각형 판자 탈출! 완벽한 타원형 적용
-            if (star.size >= 1.8) {  // 🌟 크기가 1.8 이상인 큰 별에만 화려한 플레어 효과 적용!
-                
-                let flareWidth = star.size * 20;  
-                let flareHeight = star.size * 0.7; // 세로가 0.5면 너무 바늘 같아서 살짝 키웠습니다.
-                
-                // 중심에서 바깥으로 둥글게 퍼지는 방사형 그라데이션
-                let flare = ctx.createRadialGradient(star.x, star.y, 0, star.x, star.y, flareWidth / 2);
-
-                flare.addColorStop(0, 'rgba(255, 255, 255, 0.9)'); // 중심은 밝게
-                flare.addColorStop(0.3, 'rgba(20, 170, 255, 0.6)');  // 중간은 은은한 파란빛
-                flare.addColorStop(1, 'rgba(0, 150, 255, 0)');      // 끝은 투명하게
-                
-                ctx.fillStyle = flare; 
-                
-                // fillRect 대신 진짜 타원형으로 그립니다! (인자 8개 완벽 준수)
-                ctx.ellipse(star.x, star.y, flareWidth / 2, flareHeight / 2, 0, 0, Math.PI * 2, false);
-                ctx.fill();
+            if (star.explosionFrame > 15) {
+              stars[i] = createStar(true);
             }
+            continue;
+          }
 
-            // 2) [별 본체 나중에 그리기]
-            ctx.beginPath(); 
-            ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
-            ctx.ellipse(star.x, star.y, star.size, star.size, 0, 0, Math.PI * 2, false);
+          // 1) [플레어 그리기] - 직사각형 판자 탈출! 완벽한 타원형 적용
+          if (star.size >= 1.8) {
+            // 🌟 크기가 1.8 이상인 큰 별에만 화려한 플레어 효과 적용!
+
+            let flareWidth = star.size * 20;
+            let flareHeight = star.size * 0.7; // 세로가 0.5면 너무 바늘 같아서 살짝 키웠습니다.
+
+            // 중심에서 바깥으로 둥글게 퍼지는 방사형 그라데이션
+            let flare = ctx.createRadialGradient(
+              star.x,
+              star.y,
+              0,
+              star.x,
+              star.y,
+              flareWidth / 2,
+            );
+
+            flare.addColorStop(0, "rgba(255, 255, 255, 0.9)"); // 중심은 밝게
+            flare.addColorStop(0.3, "rgba(20, 170, 255, 0.6)"); // 중간은 은은한 파란빛
+            flare.addColorStop(1, "rgba(0, 150, 255, 0)"); // 끝은 투명하게
+
+            ctx.fillStyle = flare;
+
+            // fillRect 대신 진짜 타원형으로 그립니다! (인자 8개 완벽 준수)
+            ctx.ellipse(
+              star.x,
+              star.y,
+              flareWidth / 2,
+              flareHeight / 2,
+              0,
+              0,
+              Math.PI * 2,
+              false,
+            );
             ctx.fill();
+          }
 
-            // 3) 이동 로직
-            star.x -= star.speed;
-            star.y += star.speed;
+          // 2) [별 본체 나중에 그리기]
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+          ctx.ellipse(
+            star.x,
+            star.y,
+            star.size,
+            star.size,
+            0,
+            0,
+            Math.PI * 2,
+            false,
+          );
+          ctx.fill();
 
-            let exitBufferH = Math.min(star.size * 1.1); // 별 크기에 비례한 출구 버퍼 (크면 더 멀리서 새로 생성)
-            let exitBufferW = Math.min(star.size * 20); // 별 크기에 비례한 출구 버퍼 (크면 더 멀리서 새로 생성)
+          // 3) 이동 로직
+          star.x -= star.speed;
+          star.y += star.speed;
 
-            if (star.y > canvas.height + exitBufferH || star.x < -exitBufferW) {
-                stars[i] = createStar(true);
-            }
+          let exitBufferH = Math.min(star.size * 1.1); // 별 크기에 비례한 출구 버퍼 (크면 더 멀리서 새로 생성)
+          let exitBufferW = Math.min(star.size * 20); // 별 크기에 비례한 출구 버퍼 (크면 더 멀리서 새로 생성)
+
+          if (star.y > canvas.height + exitBufferH || star.x < -exitBufferW) {
+            stars[i] = createStar(true);
+          }
         }
         // 5. [별 그리기 및 이동 연산]
-    
-// 🚀 [통합 레이저 물리 엔진]
-for (let l = lasers.length - 1; l >= 0; l--) {
-    let laser = lasers[l];
 
-    // [폭발 모드 루틴]
-    if (laser.isExploding) {
-        laser.radius += laser.splashRadius / 10;       // 동그랗게 팽창
-        laser.opacity -= 0.1;    // 사라질 준비
-        if (laser.opacity <= 0) {
-            lasers.splice(l, 1); // 투명도 0 되면 진짜 삭제
-        }
-        continue; // 폭발 중엔 이동 로직 스킵!
-    }
+        // 🚀 [통합 레이저 물리 엔진]
+        for (let l = lasers.length - 1; l >= 0; l--) {
+          let laser = lasers[l];
 
-    // [일반 이동 로직]
-    laser.x += laser.vx;
-    laser.y += laser.vy;
-    laser.vx *= laser.drag;
-    laser.vy *= laser.drag;
-    laser.w -= laser.wShrink;
-    laser.h -= laser.hShrink;
+          // [폭발 모드 루틴]
+          if (laser.isExploding) {
+            laser.radius += laser.splashRadius / 10; // 동그랗게 팽창
+            laser.opacity -= 0.1; // 사라질 준비
+            if (laser.opacity <= 0) {
+              lasers.splice(l, 1); // 투명도 0 되면 진짜 삭제
+            }
+            continue; // 폭발 중엔 이동 로직 스킵!
+          }
 
-    // [수명 종료 및 폭발 모드 전환]
-    if (laser.w < 4 || laser.h < 4) {
-        if (laser.isSplash) {
-            // 폭발 모드 변신!
-            laser.isExploding = true;
-            laser.radius = 5;      // 시작 반지름
-            laser.opacity = 1;     // 투명도 초기화
-            
-            // 폭발 범위 내 별 삭제
-            stars.forEach(star => {
-                if (Math.hypot(star.x - laser.x, star.y - laser.y) < laser.splashRadius) {
-                    star.isExploding = true;
+          // [일반 이동 로직]
+          laser.x += laser.vx;
+          laser.y += laser.vy;
+          laser.vx *= laser.drag;
+          laser.vy *= laser.drag;
+          laser.w -= laser.wShrink;
+          laser.h -= laser.hShrink;
+
+          // [수명 종료 및 폭발 모드 전환]
+          if (laser.w < 4 || laser.h < 4) {
+            if (laser.isSplash) {
+              // 폭발 모드 변신!
+              laser.isExploding = true;
+              laser.radius = 5; // 시작 반지름
+              laser.opacity = 1; // 투명도 초기화
+
+              // 폭발 범위 내 별 삭제
+              stars.forEach((star) => {
+                if (
+                  Math.hypot(star.x - laser.x, star.y - laser.y) <
+                  laser.splashRadius
+                ) {
+                  star.isExploding = true;
                 }
-            });
-        } else {
-            // 폭발 기능 없으면 그냥 삭제
-            lasers.splice(l, 1);
-        }
-        continue;
-    }
-    // 🔴 [수정 완료] 기존에 여기에 있던 뜬금없는 '}'를 도려냈습니다!
-
-    // 4. 🎯 [주인님의 1화소 정밀 타격 OBB 충돌 엔진]
-    let hit = false;
-    for (let s = 0; s < stars.length; s++) {
-        let star = stars[s];
-        if (star.isExploding) continue; 
-
-        // 1) 탄환의 중심점을 기준으로 별의 상대 위치 구하기
-        const dx = star.x - laser.x;
-        const dy = star.y - laser.y;
-
-        // 2) ⭐ 핵심 기믹: 별의 좌표를 탄환이 회전한 각도만큼 반대로 회전시켜서 AABB로 변환!
-        const correctionAngle = -laser.angle + (Math.PI / 2);
-        const cos = Math.cos(correctionAngle);
-        const sin = Math.sin(correctionAngle);
-        const rotatedX = dx * cos - dy * sin;
-        const rotatedY = dx * sin + dy * cos;
-
-        // 3) 회전된 좌표계에서 직사각형 영역 + 별의 반지름만큼 범위를 넓혀 충돌 검사!
-        let shrinkFactor = 1.4;
-        const halfW = laser.w / shrinkFactor;
-        const halfH = laser.h / shrinkFactor;
-
-        if (rotatedX >= -halfW - star.size && rotatedX <= halfW + star.size &&
-            rotatedY >= -halfH - star.size && rotatedY <= halfH + star.size) {
-            
-            star.isExploding = true; // 정밀 타격 성공, 별 폭발!
-            
-            // ⭐ [관통 시스템 가동]
-            if (laser.pierce && laser.pierce > 1) {
-                laser.pierce--; 
+              });
             } else {
+              // 폭발 기능 없으면 그냥 삭제
+              lasers.splice(l, 1);
+            }
+            continue;
+          }
+          // 🔴 [수정 완료] 기존에 여기에 있던 뜬금없는 '}'를 도려냈습니다!
+
+          // 4. 🎯 [주인님의 1화소 정밀 타격 OBB 충돌 엔진]
+          let hit = false;
+          for (let s = 0; s < stars.length; s++) {
+            let star = stars[s];
+            if (star.isExploding) continue;
+
+            // 1) 탄환의 중심점을 기준으로 별의 상대 위치 구하기
+            const dx = star.x - laser.x;
+            const dy = star.y - laser.y;
+
+            // 2) ⭐ 핵심 기믹: 별의 좌표를 탄환이 회전한 각도만큼 반대로 회전시켜서 AABB로 변환!
+            const correctionAngle = -laser.angle + Math.PI / 2;
+            const cos = Math.cos(correctionAngle);
+            const sin = Math.sin(correctionAngle);
+            const rotatedX = dx * cos - dy * sin;
+            const rotatedY = dx * sin + dy * cos;
+
+            // 3) 회전된 좌표계에서 직사각형 영역 + 별의 반지름만큼 범위를 넓혀 충돌 검사!
+            let shrinkFactor = 1.4;
+            const halfW = laser.w / shrinkFactor;
+            const halfH = laser.h / shrinkFactor;
+
+            if (
+              rotatedX >= -halfW - star.size &&
+              rotatedX <= halfW + star.size &&
+              rotatedY >= -halfH - star.size &&
+              rotatedY <= halfH + star.size
+            ) {
+              star.isExploding = true; // 정밀 타격 성공, 별 폭발!
+
+              // ⭐ [관통 시스템 가동]
+              if (laser.pierce && laser.pierce > 1) {
+                laser.pierce--;
+              } else {
                 // 💣 폭발 로직
                 if (laser.isSplash && !laser.isExploding) {
-                    // [변신!] 멈추고 폭발 모드 진입
-                    laser.isExploding = true;
-                    laser.vx = 0;
-                    laser.vy = 0;
-                    laser.radius = 5;      // 시작 반지름
-                    laser.opacity = 1;     // 투명도 초기화
-                    
-                    // 범위 내 별들 즉시 제거
-                    stars.forEach(star => {
-                        if (Math.hypot(star.x - laser.x, star.y - laser.y) < laser.splashRadius) {
-                            star.isExploding = true;
-                        }
-                    });
-                } else {
-                    // 일반 탄환은 바로 삭제
-                    lasers.splice(l, 1);    
-                    hit = true;
-                    break; 
-                }
-            }
-        }
-    }
-        if (hit) continue;
-} // 👈 이 괄호가 이제 정상적으로 레이저 'for' 루프를 닫아줍니다!
-    
-// 📐 [화면에 레이저 실시간 그리기] 
-for (let laser of lasers) {
-    ctx.save();
-    ctx.translate(laser.x, laser.y);
-    
-    // 폭발 모드일 때와 아닐 때 분기 처리
-    if (laser.isExploding) {
-        // [폭발 모드: 둥근 에너지 볼]
-        ctx.beginPath();
-        ctx.arc(0, 0, laser.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 100, 0, ${laser.opacity})`;
-        ctx.fill();
-        ctx.closePath();
-    } else {
-        // [일반 모드: 날카로운 탄환]
-        ctx.rotate(laser.angle + (Math.PI / 2));
-        ctx.fillStyle = laser.color;
-        ctx.fillRect(-laser.w / 2, -laser.h / 2, laser.w, laser.h);
-    }
-    
-    ctx.restore();
-}
+                  // [변신!] 멈추고 폭발 모드 진입
+                  laser.isExploding = true;
+                  laser.vx = 0;
+                  laser.vy = 0;
+                  laser.radius = 5; // 시작 반지름
+                  laser.opacity = 1; // 투명도 초기화
 
-// ---------------------------------------------------------------
-// 🔥 [무기 스왑 인프라] 민더스트리식 Spread + Inaccuracy 통합 연사 시스템
-// ---------------------------------------------------------------
-        if (spaceship) {
-            // 1. 현재 선택된 무기의 스펙을 도감에서 실시간으로 스캔
-            const wp = WEAPON_DOCK[currentWeapon] || WEAPON_DOCK[1]; 
-            
-            const FIRE_RATE = wp.fireRate;
-            const BULLET_COUNT = wp.count; 
-            const isAlternate = wp.shotType === "Alternate"; // 교차 발사 모드 판정
-
-            // Alternate 모드이면 spread는 '각도'가 아니라 '좌우 픽셀 간격'입니다!
-            const SPREAD_INTERVAL = isAlternate ? 0 : (wp.spread || 0) * (Math.PI / 180); 
-            const INACCURACY = (wp.inaccuracy || 0) * (Math.PI / 180);
-            const ANGLE_OFFSET = (wp.angleOffset || 0) * (Math.PI / 180); 
-            const RECOIL_FORCE = wp.recoil || 0;
-            const BULLET_SPEED = wp.speed;
-            const speedRandFactor = wp.speedRand || 0;
-
-            // 🟢 진짜 총구 개수(barrel) 가져오기 (도감에 없으면 2)
-            const TOTAL_BARRELS = Number(wp.barrel) || 2; 
-            
-            // 매 프레임마다 쿨타임을 1씩 감소시킵니다
-            if (laserCooldown > 0) {
-                laserCooldown--;
-            }
-
-            // 좌클릭 홀드 + 쿨타임 완료 + 무기 발사 탄수가 0보다 클 때 구동
-            if (isLeftClickPressed && laserCooldown === 0 && BULLET_COUNT > 0) {
-
-                // 무기를 바꾸거나 인덱스가 총구 개수를 초과하면 안전하게 리셋
-                if (isAlternate) {
-                    if (alternateIndex >= TOTAL_BARRELS) alternateIndex = 0;
-                } else {
-                    alternateIndex = 0;
-                }
-
-                // 기준 각도 계산
-                const baseAngle = Math.atan2(mousePos.y - spaceship.y, mousePos.x - spaceship.x);
-                
-                playLaserSound();
-
-                // 🌟 [수정 포인트 1] 교차 발사 모드여도 BULLET_COUNT가 지정된 만큼 루프를 돕니다.
-                // count가 1이면 1번 돌고, count가 2면 2번 돌아서 동시에 나갑니다!
-                const loopCount = BULLET_COUNT;
-
-                for (let i = 0; i < loopCount; i++) {
-                    // 총구 위치 계산을 루프 내부로 이동하여 각 탄환마다 고유의 총구를 배정합니다.
-                    let muzzleX = spaceship.x + Math.cos(baseAngle) * 10;
-                    let muzzleY = spaceship.y + Math.sin(baseAngle) * 10;
-
-                    // 🌟 [수정 포인트 2] 동시 발사 시 총구 인덱스 결정 핵심 로직
-                    // 이번 루프에서 쏠 탄환이 배치될 총구 번호를 계산합니다.
-                    // 현재 순서(alternateIndex)에서 시작해서 i만큼 더해가며 다음 총구 위치를 잡습니다.
-                    let activeBarrelIndex = alternateIndex;
-                    
-                    if (isAlternate && TOTAL_BARRELS > 1) {
-                        activeBarrelIndex = (alternateIndex + i) % TOTAL_BARRELS;
+                  // 범위 내 별들 즉시 제거
+                  stars.forEach((star) => {
+                    if (
+                      Math.hypot(star.x - laser.x, star.y - laser.y) <
+                      laser.splashRadius
+                    ) {
+                      star.isExploding = true;
                     }
-
-                    // [Alternate 전용] 계산된 총구 번호(activeBarrelIndex)에 맞춰 좌우 픽셀 간격 배치!
-                    if (isAlternate && TOTAL_BARRELS > 1) {
-                        const sideOffset = (activeBarrelIndex * wp.spread) - ((TOTAL_BARRELS - 1) * wp.spread / 2);
-                        muzzleX += Math.cos(baseAngle + Math.PI / 2) * sideOffset;
-                        muzzleY += Math.sin(baseAngle + Math.PI / 2) * sideOffset;
-                    }
-
-                    // 산탄(Spread) 모드가 아닐 때(즉, 교차 발사일 때)는 각도 벌림을 0으로 만듭니다.
-                    const spreadOffset = isAlternate ? 0 : (BULLET_COUNT > 1 
-                        ? (i * SPREAD_INTERVAL - (BULLET_COUNT - 1) * SPREAD_INTERVAL / 2) 
-                        : 0);
-
-                    const randomOffset = (Math.random() - 0.5) * INACCURACY;
-
-                    let currentSpeed = BULLET_SPEED;
-                    const randomVariation = (Math.random() * 2 - 1) * speedRandFactor;
-                    currentSpeed *= (1 + randomVariation);
-
-                    if (wp.isWave && BULLET_COUNT > 1 && !isAlternate) {
-                        currentSpeed = BULLET_SPEED - (i / (BULLET_COUNT - 1)) * 10;
-                    }
-
-                    const finalAngle = baseAngle + spreadOffset + ANGLE_OFFSET + randomOffset;
-                    const halfLength = (wp.height || 30) / 2;
-                    const correctedX = muzzleX + Math.cos(finalAngle) * halfLength;
-                    const correctedY = muzzleY + Math.sin(finalAngle) * halfLength;
-
-                    lasers.push({
-                        x: correctedX,
-                        y: correctedY,
-                        vx: Math.cos(finalAngle) * currentSpeed + (spaceship.vx || 0),
-                        vy: Math.sin(finalAngle) * currentSpeed + (spaceship.vy || 0),
-                        angle: finalAngle, 
-                        w: wp.width || 10,
-                        h: wp.height || 30,
-                        wShrink: wp.wShrink || 0.1,
-                        hShrink: wp.hShrink || 0.3,
-                        color: wp.color || "#d4d4d4",
-                        pierce: wp.pierce || 1,
-                        drag: wp.drag || 1,
-                        isSplash: wp.isSplash || false,  
-                        splashRadius: wp.splashRadius || 0
-                    });
-                }
-
-                // 발사가 끝났으니 다음 총구 번호로 굴려주기!!
-                laserCooldown = FIRE_RATE;
-
-                // 🌟 [수정 포인트 3] 이번 프레임에서 발사한 탄환 수(loopCount)만큼 인덱스를 밀어줍니다.
-                // count가 1이었으면 다음 총구로 1칸 넘어가고, count가 barrel 수만큼 다 쐈으면 제자리로 복귀합니다!
-                if (isAlternate) {
-                    alternateIndex = (alternateIndex + loopCount) % TOTAL_BARRELS;
+                  });
                 } else {
-                    alternateIndex = 0;
+                  // 일반 탄환은 바로 삭제
+                  lasers.splice(l, 1);
+                  hit = true;
+                  break;
                 }
-
-                // baseAngle이 살아 숨 쉬는 안전 구역 내부에서 반동 적용!
-                spaceship.vx -= Math.cos(baseAngle) * RECOIL_FORCE;
-                spaceship.vy -= Math.sin(baseAngle) * RECOIL_FORCE;
-
-            } // 👈 발사 조건문(if) 끝!
-
-            // [5] 🔥 우클릭 시 가속, 놓으면 관성 드리프트하는 우주선 렌더링
-            const ACCELERATION = 0.4; 
-            const MAX_SPEED = 10;     
-            const CURRENT_FRICTION = isCtrlPressed ? 1.0 : 0.91; 
-
-            if (spaceship.vx === undefined) spaceship.vx = 0;
-            if (spaceship.vy === undefined) spaceship.vy = 0;
-
-            const angle = Math.atan2(mousePos.y - spaceship.y, mousePos.x - spaceship.x);
-
-            if (isRightClickPressed) {
-                spaceship.vx += Math.cos(angle) * ACCELERATION;
-                spaceship.vy += Math.sin(angle) * ACCELERATION;
-
-                let currentSpeed = Math.sqrt(spaceship.vx * spaceship.vx + spaceship.vy * spaceship.vy);
-                if (currentSpeed > MAX_SPEED) {
-                    spaceship.vx = (spaceship.vx / currentSpeed) * MAX_SPEED;
-                    spaceship.vy = (spaceship.vy / currentSpeed) * MAX_SPEED;
-                }
-            } else {
-                spaceship.vx *= CURRENT_FRICTION;
-                spaceship.vy *= CURRENT_FRICTION;
-
-                if (!isCtrlPressed) { 
-                    if (Math.abs(spaceship.vx) < 0.05) spaceship.vx = 0;
-                    if (Math.abs(spaceship.vy) < 0.05) spaceship.vy = 0;
-                }
+              }
             }
+          }
+          if (hit) continue;
+        } // 👈 이 괄호가 이제 정상적으로 레이저 'for' 루프를 닫아줍니다!
 
-            spaceship.x += spaceship.vx;
-            spaceship.y += spaceship.vy;
+        // 📐 [화면에 레이저 실시간 그리기]
+        for (let laser of lasers) {
+          ctx.save();
+          ctx.translate(laser.x, laser.y);
 
-            const renderAngle = angle + Math.PI / 2;
-
-            ctx.save();
-            ctx.translate(spaceship.x, spaceship.y); 
-            ctx.rotate(renderAngle);             
-
-            ctx.fillStyle = spaceship.color;
-            if (isCtrlPressed) ctx.fillStyle = '#ff3333'; 
-            
+          // 폭발 모드일 때와 아닐 때 분기 처리
+          if (laser.isExploding) {
+            // [폭발 모드: 둥근 에너지 볼]
             ctx.beginPath();
-            ctx.moveTo(0, -spaceship.size); 
-            ctx.lineTo(spaceship.size * 0.8, spaceship.size * 0.5); 
-            ctx.lineTo(0, spaceship.size * 0.2); 
-            ctx.lineTo(-spaceship.size * 0.8, spaceship.size * 0.5); 
-            ctx.closePath();
+            ctx.arc(0, 0, laser.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 100, 0, ${laser.opacity})`;
             ctx.fill();
+            ctx.closePath();
+          } else {
+            // [일반 모드: 날카로운 탄환]
+            ctx.rotate(laser.angle + Math.PI / 2);
+            ctx.fillStyle = laser.color;
+            ctx.fillRect(-laser.w / 2, -laser.h / 2, laser.w, laser.h);
+          }
 
-            if (isRightClickPressed) {
-                let boosterGlow = ctx.createRadialGradient(0, spaceship.size * 0.3, 1, 0, spaceship.size * 0.3, spaceship.size * 0.8);
-                boosterGlow.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
-                boosterGlow.addColorStop(0.5, 'rgba(0, 255, 200, 0.4)');
-                boosterGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
-                ctx.fillStyle = boosterGlow;
-                ctx.beginPath();
-                ctx.arc(0, spaceship.size * 0.3, spaceship.size * 0.8, 0, Math.PI * 2);
-                ctx.fill();
+          ctx.restore();
+        }
+
+        // ---------------------------------------------------------------
+        // 🔥 [무기 스왑 인프라] 민더스트리식 Spread + Inaccuracy 통합 연사 시스템
+        // ---------------------------------------------------------------
+        if (spaceship) {
+          // 1. 현재 선택된 무기의 스펙을 도감에서 실시간으로 스캔
+          const wp = WEAPON_DOCK[currentWeapon] || WEAPON_DOCK[1];
+
+          const FIRE_RATE = wp.fireRate;
+          const BULLET_COUNT = wp.count;
+          const isAlternate = wp.shotType === "Alternate"; // 교차 발사 모드 판정
+
+          // Alternate 모드이면 spread는 '각도'가 아니라 '좌우 픽셀 간격'입니다!
+          const SPREAD_INTERVAL = isAlternate
+            ? 0
+            : (wp.spread || 0) * (Math.PI / 180);
+          const INACCURACY = (wp.inaccuracy || 0) * (Math.PI / 180);
+          const ANGLE_OFFSET = (wp.angleOffset || 0) * (Math.PI / 180);
+          const RECOIL_FORCE = wp.recoil || 0;
+          const BULLET_SPEED = wp.speed;
+          const speedRandFactor = wp.speedRand || 0;
+
+          // 🟢 진짜 총구 개수(barrel) 가져오기 (도감에 없으면 2)
+          const TOTAL_BARRELS = Number(wp.barrel) || 2;
+
+          // 매 프레임마다 쿨타임을 1씩 감소시킵니다
+          if (laserCooldown > 0) {
+            laserCooldown--;
+          }
+
+          // 좌클릭 홀드 + 쿨타임 완료 + 무기 발사 탄수가 0보다 클 때 구동
+          if (isLeftClickPressed && laserCooldown === 0 && BULLET_COUNT > 0) {
+            // 무기를 바꾸거나 인덱스가 총구 개수를 초과하면 안전하게 리셋
+            if (isAlternate) {
+              if (alternateIndex >= TOTAL_BARRELS) alternateIndex = 0;
+            } else {
+              alternateIndex = 0;
             }
-            
-            ctx.restore(); 
+
+            // 기준 각도 계산
+            const baseAngle = Math.atan2(
+              mousePos.y - spaceship.y,
+              mousePos.x - spaceship.x,
+            );
+
+            playLaserSound();
+
+            // 🌟 [수정 포인트 1] 교차 발사 모드여도 BULLET_COUNT가 지정된 만큼 루프를 돕니다.
+            // count가 1이면 1번 돌고, count가 2면 2번 돌아서 동시에 나갑니다!
+            const loopCount = BULLET_COUNT;
+
+            for (let i = 0; i < loopCount; i++) {
+              // 총구 위치 계산을 루프 내부로 이동하여 각 탄환마다 고유의 총구를 배정합니다.
+              let muzzleX = spaceship.x + Math.cos(baseAngle) * 10;
+              let muzzleY = spaceship.y + Math.sin(baseAngle) * 10;
+
+              // 🌟 [수정 포인트 2] 동시 발사 시 총구 인덱스 결정 핵심 로직
+              // 이번 루프에서 쏠 탄환이 배치될 총구 번호를 계산합니다.
+              // 현재 순서(alternateIndex)에서 시작해서 i만큼 더해가며 다음 총구 위치를 잡습니다.
+              let activeBarrelIndex = alternateIndex;
+
+              if (isAlternate && TOTAL_BARRELS > 1) {
+                activeBarrelIndex = (alternateIndex + i) % TOTAL_BARRELS;
+              }
+
+              // [Alternate 전용] 계산된 총구 번호(activeBarrelIndex)에 맞춰 좌우 픽셀 간격 배치!
+              if (isAlternate && TOTAL_BARRELS > 1) {
+                const sideOffset =
+                  activeBarrelIndex * wp.spread -
+                  ((TOTAL_BARRELS - 1) * wp.spread) / 2;
+                muzzleX += Math.cos(baseAngle + Math.PI / 2) * sideOffset;
+                muzzleY += Math.sin(baseAngle + Math.PI / 2) * sideOffset;
+              }
+
+              // 산탄(Spread) 모드가 아닐 때(즉, 교차 발사일 때)는 각도 벌림을 0으로 만듭니다.
+              const spreadOffset = isAlternate
+                ? 0
+                : BULLET_COUNT > 1
+                  ? i * SPREAD_INTERVAL -
+                    ((BULLET_COUNT - 1) * SPREAD_INTERVAL) / 2
+                  : 0;
+
+              const randomOffset = (Math.random() - 0.5) * INACCURACY;
+
+              let currentSpeed = BULLET_SPEED;
+              const randomVariation = (Math.random() * 2 - 1) * speedRandFactor;
+              currentSpeed *= 1 + randomVariation;
+
+              if (wp.isWave && BULLET_COUNT > 1 && !isAlternate) {
+                currentSpeed = BULLET_SPEED - (i / (BULLET_COUNT - 1)) * 10;
+              }
+
+              const finalAngle =
+                baseAngle + spreadOffset + ANGLE_OFFSET + randomOffset;
+              const halfLength = (wp.height || 30) / 2;
+              const correctedX = muzzleX + Math.cos(finalAngle) * halfLength;
+              const correctedY = muzzleY + Math.sin(finalAngle) * halfLength;
+
+              lasers.push({
+                x: correctedX,
+                y: correctedY,
+                vx: Math.cos(finalAngle) * currentSpeed + (spaceship.vx || 0),
+                vy: Math.sin(finalAngle) * currentSpeed + (spaceship.vy || 0),
+                angle: finalAngle,
+                w: wp.width || 10,
+                h: wp.height || 30,
+                wShrink: wp.wShrink || 0.1,
+                hShrink: wp.hShrink || 0.3,
+                color: wp.color || "#d4d4d4",
+                pierce: wp.pierce || 1,
+                drag: wp.drag || 1,
+                isSplash: wp.isSplash || false,
+                splashRadius: wp.splashRadius || 0,
+              });
+            }
+
+            // 발사가 끝났으니 다음 총구 번호로 굴려주기!!
+            laserCooldown = FIRE_RATE;
+
+            // 🌟 [수정 포인트 3] 이번 프레임에서 발사한 탄환 수(loopCount)만큼 인덱스를 밀어줍니다.
+            // count가 1이었으면 다음 총구로 1칸 넘어가고, count가 barrel 수만큼 다 쐈으면 제자리로 복귀합니다!
+            if (isAlternate) {
+              alternateIndex = (alternateIndex + loopCount) % TOTAL_BARRELS;
+            } else {
+              alternateIndex = 0;
+            }
+
+            // baseAngle이 살아 숨 쉬는 안전 구역 내부에서 반동 적용!
+            spaceship.vx -= Math.cos(baseAngle) * RECOIL_FORCE;
+            spaceship.vy -= Math.sin(baseAngle) * RECOIL_FORCE;
+          } // 👈 발사 조건문(if) 끝!
+
+          // [5] 🔥 우클릭 시 가속, 놓으면 관성 드리프트하는 우주선 렌더링
+          const ACCELERATION = 0.4;
+          const MAX_SPEED = 10;
+          const CURRENT_FRICTION = isCtrlPressed ? 1.0 : 0.91;
+
+          if (spaceship.vx === undefined) spaceship.vx = 0;
+          if (spaceship.vy === undefined) spaceship.vy = 0;
+
+          const angle = Math.atan2(
+            mousePos.y - spaceship.y,
+            mousePos.x - spaceship.x,
+          );
+
+          if (isRightClickPressed) {
+            spaceship.vx += Math.cos(angle) * ACCELERATION;
+            spaceship.vy += Math.sin(angle) * ACCELERATION;
+
+            let currentSpeed = Math.sqrt(
+              spaceship.vx * spaceship.vx + spaceship.vy * spaceship.vy,
+            );
+            if (currentSpeed > MAX_SPEED) {
+              spaceship.vx = (spaceship.vx / currentSpeed) * MAX_SPEED;
+              spaceship.vy = (spaceship.vy / currentSpeed) * MAX_SPEED;
+            }
+          } else {
+            spaceship.vx *= CURRENT_FRICTION;
+            spaceship.vy *= CURRENT_FRICTION;
+
+            if (!isCtrlPressed) {
+              if (Math.abs(spaceship.vx) < 0.05) spaceship.vx = 0;
+              if (Math.abs(spaceship.vy) < 0.05) spaceship.vy = 0;
+            }
+          }
+
+          spaceship.x += spaceship.vx;
+          spaceship.y += spaceship.vy;
+
+          const renderAngle = angle + Math.PI / 2;
+
+          ctx.save();
+          ctx.translate(spaceship.x, spaceship.y);
+          ctx.rotate(renderAngle);
+
+          ctx.fillStyle = spaceship.color;
+          if (isCtrlPressed) ctx.fillStyle = "#ff3333";
+
+          ctx.beginPath();
+          ctx.moveTo(0, -spaceship.size);
+          ctx.lineTo(spaceship.size * 0.8, spaceship.size * 0.5);
+          ctx.lineTo(0, spaceship.size * 0.2);
+          ctx.lineTo(-spaceship.size * 0.8, spaceship.size * 0.5);
+          ctx.closePath();
+          ctx.fill();
+
+          if (isRightClickPressed) {
+            let boosterGlow = ctx.createRadialGradient(
+              0,
+              spaceship.size * 0.3,
+              1,
+              0,
+              spaceship.size * 0.3,
+              spaceship.size * 0.8,
+            );
+            boosterGlow.addColorStop(0, "rgba(255, 255, 255, 0.8)");
+            boosterGlow.addColorStop(0.5, "rgba(0, 255, 200, 0.4)");
+            boosterGlow.addColorStop(1, "rgba(0, 0, 0, 0)");
+            ctx.fillStyle = boosterGlow;
+            ctx.beginPath();
+            ctx.arc(
+              0,
+              spaceship.size * 0.3,
+              spaceship.size * 0.8,
+              0,
+              Math.PI * 2,
+            );
+            ctx.fill();
+          }
+
+          ctx.restore();
         } // 👈 우주선 조건문 (if (spaceship)) 닫기
         drawUI();
-        
-        requestAnimationFrame(animate);
-    }
 
-    function drawUI() {
+        requestAnimationFrame(animate);
+      }
+
+      function drawUI() {
         if (!spaceship) return;
         // 현재 들고 있는 무기 스펙 스캔
         const wp = WEAPON_DOCK[currentWeapon] || WEAPON_DOCK[0];
 
         ctx.save();
-        ctx.font = "bold 32px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
+        ctx.font =
+          "bold 32px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
         ctx.textAlign = "left";
-        ctx.textBaseline = "top"; 
+        ctx.textBaseline = "top";
 
         // ⭐ 핵심: 숫자가 입력 중인 상태('_'가 포함된 상태)라면 얌전한 회색, 완성되면 화려한 탄약 색상!
-        if (displayNum.includes('_')) {
-            ctx.fillStyle = "#888888"; // 입력 중일 때의 시크한 대기 색상
+        if (displayNum.includes("_")) {
+          ctx.fillStyle = "#888888"; // 입력 중일 때의 시크한 대기 색상
         } else {
-            ctx.fillStyle = wp.color || "#ffffff"; // 완성 시 탄약 고유 색상 점등!
+          ctx.fillStyle = wp.color || "#ffffff"; // 완성 시 탄약 고유 색상 점등!
         }
 
         // 완성 여부와 상관없이 현재 실시간 번호(displayNum)를 왼쪽 위에 툭!
-        ctx.fillText(displayNum, 20, 20); 
+        ctx.fillText(displayNum, 20, 20);
 
-        ctx.restore();  
-    }
+        ctx.restore();
+      }
 
-let globalAudioCtx = null;
+      let globalAudioCtx = null;
 
-function playLaserSound() {
+      function playLaserSound() {
         {
-        if (!globalAudioCtx) {
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (!globalAudioCtx) {
+            const AudioContext =
+              window.AudioContext || window.webkitAudioContext;
             globalAudioCtx = new AudioContext();
-        }
+          }
 
-        if (globalAudioCtx.state === 'suspended') {
+          if (globalAudioCtx.state === "suspended") {
             globalAudioCtx.resume();
+          }
+
+          // 현재 무기 스펙 스캔
+          const wp = WEAPON_DOCK[currentWeapon] || WEAPON_DOCK[0];
+
+          // 💡 도감에 설정이 없으면 기본값 세팅 (볼륨 0.2, 주파수 600, 길이 0.15초)
+          const wpVolume = wp.volume !== undefined ? wp.volume : 0.2;
+          const wpPitch = wp.pitch !== undefined ? wp.pitch : 600;
+          const wpDuration = wp.duration !== undefined ? wp.duration : 0.15; // ⭐ 재생 시간 변수 확보!
+
+          const osc = globalAudioCtx.createOscillator();
+          const gain = globalAudioCtx.createGain();
+
+          osc.connect(gain);
+          gain.connect(globalAudioCtx.destination);
+
+          osc.type = "sawtooth";
+
+          // ⭐ 도감에서 가져온 고유의 음높이와 '재생 시간(wpDuration)' 매칭!
+          osc.frequency.setValueAtTime(wpPitch, globalAudioCtx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(
+            wpPitch * 0.1,
+            globalAudioCtx.currentTime + wpDuration,
+          );
+
+          // ⭐ 소리가 지정된 시간(wpDuration) 동안 부드러운 곡선을 그리며 서서히 사라지도록 세팅!
+          gain.gain.setValueAtTime(wpVolume, globalAudioCtx.currentTime);
+          gain.gain.linearRampToValueAtTime(
+            0.001,
+            globalAudioCtx.currentTime + wpDuration,
+          );
+
+          // ⭐ 주인님이 지정한 시간만큼 정확하게 연주하고 소멸!
+          osc.start(globalAudioCtx.currentTime);
+          osc.stop(globalAudioCtx.currentTime + wpDuration);
         }
+      }
 
-        // 현재 무기 스펙 스캔
-        const wp = WEAPON_DOCK[currentWeapon] || WEAPON_DOCK[0];
+      // 🛑 기존에 맨 밑에 있던 animate(); 를 지우고, 아래처럼 데이터 로딩 함수를 먼저 실행합니다.
 
-        // 💡 도감에 설정이 없으면 기본값 세팅 (볼륨 0.2, 주파수 600, 길이 0.15초)
-        const wpVolume = wp.volume !== undefined ? wp.volume : 0.2;
-        const wpPitch = wp.pitch !== undefined ? wp.pitch : 600;
-        const wpDuration = wp.duration !== undefined ? wp.duration : 0.15; // ⭐ 재생 시간 변수 확보!
+      fetch("weapons.json")
+        .then((response) => response.json())
+        .then((data) => {
+          WEAPON_DOCK = data;
+          animate();
+        });
 
-        const osc = globalAudioCtx.createOscillator();
-        const gain = globalAudioCtx.createGain();
-
-        osc.connect(gain);
-        gain.connect(globalAudioCtx.destination);
-
-        osc.type = 'sawtooth'; 
-
-        // ⭐ 도감에서 가져온 고유의 음높이와 '재생 시간(wpDuration)' 매칭!
-        osc.frequency.setValueAtTime(wpPitch, globalAudioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(wpPitch * 0.1, globalAudioCtx.currentTime + wpDuration);
-
-        // ⭐ 소리가 지정된 시간(wpDuration) 동안 부드러운 곡선을 그리며 서서히 사라지도록 세팅!
-        gain.gain.setValueAtTime(wpVolume, globalAudioCtx.currentTime);
-        gain.gain.linearRampToValueAtTime(0.001, globalAudioCtx.currentTime + wpDuration);
-
-        // ⭐ 주인님이 지정한 시간만큼 정확하게 연주하고 소멸!
-        osc.start(globalAudioCtx.currentTime);
-        osc.stop(globalAudioCtx.currentTime + wpDuration);
-        
-    }
-}
-
-// 🛑 기존에 맨 밑에 있던 animate(); 를 지우고, 아래처럼 데이터 로딩 함수를 먼저 실행합니다.
-
-fetch('weapons.json')
-    .then(response => response.json())
-    .then(data => {
-        WEAPON_DOCK = data;
-        animate();
-    });
-    
-</script>
-
-<div class="footer-log">
-    Last Update: <span id="last-update">2026-05-29</span>
-</div>
-<script>
-    // 업데이트 날짜 자동 갱신
-    document.getElementById('last-update').innerText = new Date().toISOString().split('T')[0];
-</script>
-
-
-</body>
+      // 업데이트 날짜 자동 갱신
+      document.getElementById("last-update").innerText = new Date()
+        .toISOString()
+        .split("T")[0];
+    </script>
+  </body>
 </html>
