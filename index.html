@@ -1172,5 +1172,14 @@ fetch('weapons.json')
     
 </script>
 
+<div class="footer-log">
+    Last Update: <span id="last-update">2026-05-29</span>
+</div>
+<script>
+    // 업데이트 날짜 자동 갱신
+    document.getElementById('last-update').innerText = new Date().toISOString().split('T')[0];
+</script>
+
+
 </body>
 </html>
