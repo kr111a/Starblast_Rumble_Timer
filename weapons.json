@@ -1,7 +1,7 @@
 {
   "0": {
     "name": "Zero Point Cannon",
-    "lifetime": 720,
+    "lifetime": 120,
     "shotType": "Normal",
     "fireRate": 10,
     "inaccuracy": 0,
@@ -44,7 +44,7 @@
   },
   "2": {
     "name": "Rapid Machine Gun",
-    "lifetime": 30,
+    "lifetime": 25,
     "shotType": "Normal",
     "fireRate": 3,
     "inaccuracy": 25,
@@ -64,7 +64,7 @@
   },
   "3": {
     "name": "Double Machine Gun",
-    "lifetime": 52,
+    "lifetime": 40,
     "shotType": "Alternate",
     "fireRate": 4,
     "inaccuracy": 8,
@@ -85,7 +85,7 @@
   },
   "4": {
     "name": "Space Shotgun",
-    "lifetime": 40,
+    "lifetime": 35,
     "shotType": "Normal",
     "fireRate": 25,
     "inaccuracy": 10,
@@ -106,7 +106,7 @@
   },
   "5": {
     "name": "Super Space Shotgun",
-    "lifetime": 45,
+    "lifetime": 40,
     "shotType": "Normal",
     "fireRate": 60,
     "inaccuracy": 30,
@@ -169,7 +169,7 @@
   },
   "8": {
     "name": "Dual Splitter",
-    "lifetime": 50,
+    "lifetime": 45,
     "shotType": "Normal",
     "fireRate": 12,
     "inaccuracy": 8,
@@ -189,7 +189,7 @@
   },
   "9": {
     "name": "Triple Splitter",
-    "lifetime": 50,
+    "lifetime": 45,
     "shotType": "Normal",
     "fireRate": 12,
     "inaccuracy": 8,
@@ -209,7 +209,7 @@
   },
   "10": {
     "name": "Booster",
-    "lifetime": 29,
+    "lifetime": 25,
     "shotType": "Normal",
     "fireRate": 5,
     "inaccuracy": 20,
