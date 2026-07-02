@@ -1,0 +1,262 @@
+/* 기본 우주 배경 스타일 */
+body {
+    background-color: #05050a;
+    color: #ffffff;
+    font-family: "Arial", sans-serif;
+    text-align: center;
+    padding-top: 100px;
+    margin: 0;
+    overflow: hidden;
+    /* 별들이 화면 밖으로 나갈 때 스크롤바 방지 */
+    position: relative;
+}
+
+/* 캔버스 배경을 화면 전체에 고정 */
+#space {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+/* 중앙 타이머 컨테이너 (별빛 위에 떠 있어야 하므로 z-index 설정) */
+.container {
+    background-color: rgba(30,
+            30,
+            45,
+            0.85);
+    /* 살짝 투명하게 해서 뒤에 별이 보이도록 */
+    display: inline-block;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 255, 200, 0.3);
+    border: 1px solid rgba(0, 255, 200, 0.2);
+    position: relative;
+    z-index: 10;
+    backdrop-filter: blur(5px);
+    /* 배경 흐림 효과로 고급스럽게 */
+    pointer-events: none;
+    /* 👈 요놈만 슬쩍 추가 */
+}
+
+/* [그 바로 밑에 새로 한 줄 추가] */
+.container * {
+    pointer-events: auto;
+}
+
+/* 창 닫기 버튼 (컨테이너 내부 오른쪽 위) */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: transparent;
+    border: 1px solid #00ffc8;
+    color: #00ffc8;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+/* 타이머 창 열기 버튼 */
+.open-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    /* 언어 선택기와 겹치지 않게 배치 */
+    background: rgba(30, 30, 45, 0.8);
+    color: #fff;
+    border: 1px solid rgba(0, 255, 200, 0.4);
+    padding: 1px 7px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: none;
+    /* 처음에 창이 떠 있으니 숨김 */
+    z-index: 100;
+    font-size: 24px;
+}
+
+/* 댓글 창 열기 버튼 */
+.comment-open-btn {
+    position: absolute;
+    top: 50px;
+    right: 30px;
+    /* 언어 선택기와 겹치지 않게 배치 */
+    background: rgba(30, 30, 45, 0.8);
+    color: #fff;
+    border: 1px solid rgba(0, 255, 200, 0.4);
+    padding: 1px 7px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: none;
+    /* 처음에 창이 떠 있으니 숨김 */
+    z-index: 100;
+    font-size: 24px;
+}
+
+.rainbow {
+    background-image: linear-gradient(to right,
+            #ff0000,
+            #ff7f00,
+            #ffff00,
+            #00ff00,
+            #0000ff,
+            #4b0082,
+            #8b00ff,
+            #ff0000) !important;
+    background-size: 200% 100% !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    color: transparent !important;
+    text-shadow: none !important;
+    animation:
+        rainbow-flow var(--speed, 2s) linear infinite,
+        wave 0.8s ease-in-out infinite;
+}
+
+.rumble {
+    background-image: linear-gradient(to right,
+            #ff3300,
+            #ff6600,
+            #ffaa00,
+            #ffd700,
+            #ffaa00,
+            #ff6600,
+            #ff3300) !important;
+    background-size: 200% 100% !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    color: transparent !important;
+    text-shadow: none !important;
+    animation: rainbow-flow 0.35s linear infinite !important;
+}
+
+@keyframes rainbow-flow {
+    0% {
+        background-position: 0% center;
+    }
+
+    100% {
+        background-position: -200% center;
+    }
+}
+
+@keyframes wave {
+    0% {
+        transform: translateY(0px);
+        animation-timing-function: ease-in-out;
+    }
+
+    50% {
+        transform: translateY(20px);
+        animation-timing-function: ease-in-out;
+    }
+
+    100% {
+        transform: translateY(0px);
+        animation-timing-function: ease-in-out;
+    }
+}
+
+h1 {
+    color: #00ffc8;
+    margin-top: 0;
+    text-shadow: 0 0 10px rgba(0, 255, 192, 0.5);
+}
+
+.timer {
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 20px 0;
+    transform: translateY(10px);
+    color: #ff0077;
+    text-shadow: 0 0 15px rgba(255, 0, 119, 0.5);
+}
+
+.info {
+    color: #aaaaaa;
+    font-size: 1.1rem;
+}
+
+.copyright {
+    position: fixed;
+    bottom: 10px;
+    right: 8px;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 2px !important;
+    color: rgba(0, 255, 200, 0.4);
+    text-shadow: 0 0 5px rgba(0, 255, 200, 0.2);
+    user-select: none;
+    z-index: 999;
+    transition: all 0.3s ease;
+}
+
+.copyright:hover {
+    color: rgba(0, 255, 200, 1);
+    text-shadow: 0 0 10px rgba(0, 255, 200, 0.8);
+    transform: scale(1.05) !important;
+}
+
+@media (max-width: 768px) {
+    .timer {
+        font-size: 2rem !important;
+    }
+
+    .copyright {
+        right: auto !important;
+        /* 💡 1. 기존 우측 고정 효과를 강제로 해제 */
+        left: 50% !important;
+        /* 💡 2. 가로 50% 지점으로 기준점 이동 */
+        transform: translateX(-50%) !important;
+        /* 💡 3. 가로축 정중앙 정렬 완성 */
+        bottom: 25px !important;
+    }
+
+    .copyright:hover {
+        color: rgba(0, 255, 200, 1) !important;
+        text-shadow: 0 0 10px rgba(0, 255, 200, 0.8) !important;
+        transform: translateX(-50%) scale(1.05) !important;
+    }
+
+    .footer-log {
+        left: 50% !important;
+        width: 95% !important;
+    }
+
+    #comment-section-wrapper {
+        margin-top: 350px !important;
+        width: 100% !important;
+        /* 💡 화면 가로 꽉 차게 확장 */
+        max-width: 100% !important;
+        padding: 15px !important;
+        box-sizing: border-box !important;
+        /* 💡 패딩 때문에 화면 오른쪽으로 밀려나서 탈출하는 현상 원천 차단 */
+        left: 0 !important;
+        right: 0 !important;
+        transform: none !important;
+    }
+}
+
+.footer-log {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "Courier New", Courier, monospace;
+    font-size: 14px;
+    font-weight: bold;
+    color: rgba(0, 255, 200, 0.4);
+    text-shadow: 0 0 5px rgba(0, 255, 200, 0.2);
+    user-select: none;
+    z-index: 999;
+    transition: all 0.3s ease;
+}
+
+.footer-log:hover {
+    color: rgba(0, 255, 200, 1);
+    text-shadow: 0 0 10px rgba(0, 255, 200, 0.8);
+    transform: translateX(-50%) scale(1.05);
+}
