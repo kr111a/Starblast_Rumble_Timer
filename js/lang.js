@@ -1,14 +1,28 @@
 // js/lang.js
 
-// 1. [순서 변경 - 핵심!] 로컬 스토리지보다 '현재 브라우저의 실제 언어'를 최우선으로 체크합니다.
-const browserLang = navigator.language || navigator.userLanguage || "en";
-const systemLang = browserLang.toLowerCase().substring(0, 2);
+// 1. [변경] 로컬 스토리지나 브라우저 언어 대신, "현재 접속한 URL 경로"를 최우선으로 체크합니다.
+const currentPath = window.location.pathname; // 예: /Starblast_Rumble_Timer/ko/
+const pathSegments = currentPath.split("/").filter(Boolean);
+const supportedLangs = ["ko", "zh", "ja", "en", "fr", "es", "de"];
 
-// 2. 만약 이전에 저장된 언어와 현재 브라우저 언어가 다르면, 브라우저 언어를 우선 적용합니다.
+// URL 경로 중에 지원하는 7개 언어가 포함되어 있는지 확인 (예: 'ko' 등)
+const urlLang = pathSegments.find((segment) => supportedLangs.includes(segment));
+
 let currentLang = localStorage.getItem("userLang");
-if (!currentLang || currentLang !== systemLang) {
-  currentLang = systemLang;
+
+if (urlLang) {
+  // URL에 언어가 명시되어 있다면 무조건 그 언어를 최우선 적용합니다.
+  currentLang = urlLang;
   localStorage.setItem("userLang", currentLang);
+} else {
+  // URL에 언어가 없다면 (예: 메인 root 주소로 그냥 접속했을 때) 기존 감지 로직 적용
+  const browserLang = navigator.language || navigator.userLanguage || "en";
+  const systemLang = browserLang.toLowerCase().substring(0, 2);
+
+  if (!currentLang || currentLang !== systemLang) {
+    currentLang = systemLang;
+    localStorage.setItem("userLang", currentLang);
+  }
 }
 
 let i18n = {};
@@ -16,10 +30,10 @@ let i18n = {};
 // 3. 파일 직접 찔러보고 판단하는 로직
 async function loadLanguage(lang) {
   try {
-    const response = await fetch(`locales/${lang}.json`);
+    const response = await fetch(`/Starblast_Rumble_Timer/locales/${lang}.json`);
 
     // 파일이 없으면 에러를 내서 catch 구문(영어 대체)으로 이동
-    if (!response.ok) throw new Error(`File not found: locales/${lang}.json`);
+    if (!response.ok) throw new Error(`File not found: /Starblast_Rumble_Timer/locales/${lang}.json`);
 
     i18n = await response.json();
     currentLang = lang;

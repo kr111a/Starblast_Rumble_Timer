@@ -27,7 +27,7 @@ const db = getFirestore(app);
 
 // 🚨 [보안] 해커들 대가리 깨버릴 주인님만의 비밀 소금 (외부 유출 금지)
 // 파이어베이스 보안 규칙(Rules)이 직접 삭제를 막아주므로 프론트엔드에 노출되어도 완벽히 안전합니다.
-const MY_SECRET_SALT = "fuck_you_dead_hacker_starblast_rumble_9999!@#$";
+const MY_SECRET_SALT = "_starblast_rumble_9999!@#$";
 
 // 1. 비밀번호 영문/숫자만 허용하는 검증 함수
 const isCryptoSafePassword = (str) =>
