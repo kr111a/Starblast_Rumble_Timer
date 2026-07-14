@@ -4,9 +4,7 @@ window.addEventListener("load", () => {
   const FAIL_COOLDOWN = 1 * 1000;
   const SUCCESS_COOLDOWN = 30 * 60 * 1000;
 
-  const lastAttemptTime = parseInt(
-    localStorage.getItem("lastAttemptTime") || "0",
-  );
+  const lastAttemptTime = parseInt(localStorage.getItem("lastAttemptTime") || "0");
   const lastStatus = localStorage.getItem("lastStatus");
   const now = new Date().getTime();
 
@@ -17,10 +15,7 @@ window.addEventListener("load", () => {
     if (!i18n || !i18n.rumbleTitle) return;
 
     const userAgent = navigator.userAgent.toLowerCase();
-    const isMobileDevice =
-      /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(
-        userAgent,
-      );
+    const isMobileDevice = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
     const isMobile = isMobileDevice || navigator.maxTouchPoints > 0;
 
     // 💡 [수정] 다국어 JSON(i18n) 객체에서 번역된 힌트 문구를 동적으로 긁어옵니다.

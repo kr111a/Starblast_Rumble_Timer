@@ -105,9 +105,7 @@ function formatLongTime(nowMs, targetMs) {
   const now = new Date(nowMs);
   const target = new Date(targetMs);
 
-  let months =
-    (target.getFullYear() - now.getFullYear()) * 12 +
-    (target.getMonth() - now.getMonth());
+  let months = (target.getFullYear() - now.getFullYear()) * 12 + (target.getMonth() - now.getMonth());
   let tempDate = new Date(now.getTime());
   tempDate.setMonth(tempDate.getMonth() + months);
   if (tempDate > target) months--;
@@ -117,9 +115,7 @@ function formatLongTime(nowMs, targetMs) {
   let remainTime = targetMs - lastMonthDate.getTime();
 
   const days = Math.floor(remainTime / (1000 * 60 * 60 * 24));
-  const hours = Math.floor(
-    (remainTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-  );
+  const hours = Math.floor((remainTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const minutes = Math.floor((remainTime % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((remainTime % (1000 * 60)) / 1000);
 
@@ -127,10 +123,7 @@ function formatLongTime(nowMs, targetMs) {
   if (months > 0) res += `${months}${t.mo || ""}`;
   if (days > 0 || months > 0) res += `${days}${t.dayLabel || ""}`;
 
-  return (
-    res +
-    `${hours}${t.h || ""} ${minutes}${t.min || ""} ${seconds}${t.s || ""}${t.remain || ""}`
-  );
+  return res + `${hours}${t.h || ""} ${minutes}${t.min || ""} ${seconds}${t.s || ""}${t.remain || ""}`;
 }
 
 function getWeekday(date) {

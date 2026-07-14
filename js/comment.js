@@ -1,16 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  query,
-  where,
-  orderBy,
-  doc,
-  updateDoc,
-  serverTimestamp,
-} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, doc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDG5_L9xIbDFtbI-VfV2NgOA4YXsRF7oyM",
@@ -30,8 +19,7 @@ const db = getFirestore(app);
 const MY_SECRET_SALT = "_starblast_rumble_9999!@#$";
 
 // 1. 비밀번호 영문/숫자만 허용하는 검증 함수
-const isCryptoSafePassword = (str) =>
-  /^[A-Za-z0-9]+$/.test(str.normalize("NFC"));
+const isCryptoSafePassword = (str) => /^[A-Za-z0-9]+$/.test(str.normalize("NFC"));
 
 // 2. 댓글 조회 함수 (지워지지 않은 댓글만 필터링)
 async function loadComments() {
@@ -41,12 +29,7 @@ async function loadComments() {
   try {
     // 🚀 [보안 강화] where 조건을 넣어 'isDeleted' 필드가 true가 아닌 정상 댓글만 쏙 골라옵니다.
     // 파이어베이스 인덱스 정책상 != 연산자를 쓰면 해당 필드로 먼저 정렬(orderBy)을 걸어주어야 에러가 나지 않습니다.
-    const q = query(
-      collection(db, "comments"),
-      where("isDeleted", "!=", true),
-      orderBy("isDeleted"),
-      orderBy("date", "desc"),
-    );
+    const q = query(collection(db, "comments"), where("isDeleted", "!=", true), orderBy("isDeleted"), orderBy("date", "desc"));
     const querySnapshot = await getDocs(q);
 
     list.innerHTML = "";
