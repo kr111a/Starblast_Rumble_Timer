@@ -1,0 +1,32 @@
+---
+layout: null
+---
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecting...</title>
+    <script>
+      // 1. 사용자의 브라우저 언어 감지 (예: 'ko-KR' -> 'ko', 'en-US' -> 'en')
+      const userLang = (navigator.language || navigator.userLanguage).substring(0, 2);
+
+      // 2. 현재 저장소에 만들어두신 지원 언어 목록
+      const supportedLangs = ["ko", "en", "zh", "ja", "fr", "es", "de"];
+
+      // 3. 기본 이동 경로 (사용자 언어가 목록에 없으면 영어 페이지로 보냄)
+      let targetLang = "en";
+
+      // 4. 사용자 언어가 지원 언어 목록에 있으면 해당 언어로 설정
+      if (supportedLangs.includes(userLang)) {
+        targetLang = userLang;
+      }
+
+      // 5. 자동으로 해당 언어 폴더로 이동 처리
+      window.location.href = "/Starblast_Rumble_Timer/" + targetLang + "/";
+    </script>
+  </head>
+  <body>
+    <p>Redirecting... / 이동 중입니다...</p>
+  </body>
+</html>
