@@ -221,11 +221,6 @@ h1 {
         transform: translateX(-50%) scale(1.05) !important;
     }
 
-    .footer-log {
-        left: 50% !important;
-        width: 95% !important;
-    }
-
     #comment-section-wrapper {
         margin-top: 350px !important;
         width: 100% !important;
@@ -238,25 +233,4 @@ h1 {
         right: 0 !important;
         transform: none !important;
     }
-}
-
-.footer-log {
-    position: fixed;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: "Courier New", Courier, monospace;
-    font-size: 14px;
-    font-weight: bold;
-    color: rgba(0, 255, 200, 0.4);
-    text-shadow: 0 0 5px rgba(0, 255, 200, 0.2);
-    user-select: none;
-    z-index: 999;
-    transition: all 0.3s ease;
-}
-
-.footer-log:hover {
-    color: rgba(0, 255, 200, 1);
-    text-shadow: 0 0 10px rgba(0, 255, 200, 0.8);
-    transform: translateX(-50%) scale(1.05);
 }
