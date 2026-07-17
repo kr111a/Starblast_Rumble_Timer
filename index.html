@@ -1,0 +1,31 @@
+---
+layout: null
+permalink: /
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- 최상위 주소로 접속했을 때 보여줄 기본 타이틀입니다 -->
+    <title>스타블래스트 럼블 타이머 - Starblast Rumble Timer</title>
+    <script>
+      // 사용자의 브라우저 언어 첫 2글자 감지 (ko, en, ja 등)
+      var userLang = (navigator.language || navigator.userLanguage).substring(0, 2);
+
+      // 내가 index.md를 만들어 둔 언어 폴더 목록
+      var supportedLangs = ["ko", "en", "de", "es", "fr", "ja", "zh"];
+
+      // 감지된 언어 폴더가 있으면 그곳으로 자동 이동, 없으면 영어(/en/)로 이동
+      if (supportedLangs.indexOf(userLang) > -1) {
+        window.location.href = "./" + userLang + "/";
+      } else {
+        window.location.href = "./en/";
+      }
+    </script>
+  </head>
+  <body>
+    <!-- 리다이렉트가 일어나기 전 0.1초 동안 잠깐 보일 수 있는 안내 문구 -->
+    <p>Loading Starblast Rumble Timer...</p>
+  </body>
+</html>
